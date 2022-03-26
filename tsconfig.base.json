@@ -16,7 +16,9 @@
     "baseUrl": ".",
     "strictNullChecks": true,
     "esModuleInterop": true,
-    "paths": {}
+    "paths": {
+      "@bbe/types": ["libs/types/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

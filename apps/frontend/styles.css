@@ -1,3 +1,62 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.document section {
+  @apply py-4;
+}
+
+.document h1,
+h2,
+h3,
+h4 {
+  @apply font-bold mb-2 text-center;
+}
+
+.document h1 {
+  @apply text-2xl;
+}
+
+.document h2 {
+  @apply text-xl;
+}
+
+.document h3 {
+  @apply text-lg;
+}
+
+.document h4 {
+  @apply text-base;
+}
+
+.document ol {
+  @apply list-decimal list-outside pl-5;
+}
+
+.document ol,
+li,
+p {
+  @apply my-1;
+}
+
+.document ol > li:before {
+}
+
+.document ol > li > ol {
+  @apply list-none list-inside;
+  counter-reset: list;
+}
+
+.document ol > li > ol > li {
+  @apply ml-6 table;
+}
+
+.document ol > li > ol > li:before {
+  @apply table-cell pr-1;
+  content: counter(list, lower-alpha) ') ';
+  counter-increment: list;
+}
+
+.document ol > li > ol > li > ol > li:before {
+  content: counter(list, lower-roman) '. ';
+}

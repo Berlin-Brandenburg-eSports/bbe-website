@@ -8,6 +8,24 @@ module.exports = {
     join(__dirname, 'templates/**/*.{ts,tsx,js,jsx}'),
     ...createGlobPatternsForDependencies(__dirname),
   ],
-  theme: {},
+  theme: {
+    extend: {
+      container: {
+        center: true,
+        padding: '1rem',
+      },
+      colors: {
+        primary: {
+          light: '#cc527a',
+          DEFAULT: '#e8175d',
+          dark: '#8b0e38',
+        },
+        gray: {
+          dark: '#363636',
+          light: '#474747',
+        },
+      },
+    },
+  },
   plugins: [],
 };

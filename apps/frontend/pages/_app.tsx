@@ -3,9 +3,9 @@ import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
 import '../styles.css';
 
-function BBEApp({ Component, pageProps }: AppProps): JSX.Element {
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const title = 'Berlin Brandenburg eSports e.V.';
-  const description = ''; // TODO: Description
+  const description = 'We are ready';
 
   return (
     <>
@@ -14,6 +14,7 @@ function BBEApp({ Component, pageProps }: AppProps): JSX.Element {
         defaultTitle={title}
         description={description}
         openGraph={{ type: 'website', title, description }}
+        twitter={{ site: '@bbesports_ev', handle: '@bbesports_ev', cardType: 'summary' }}
       />
       <main className={classNames('flex', 'flex-col', 'min-h-screen')}>
         <Component {...pageProps} />
@@ -22,4 +23,4 @@ function BBEApp({ Component, pageProps }: AppProps): JSX.Element {
   );
 }
 
-export default BBEApp;
+export default MyApp;
