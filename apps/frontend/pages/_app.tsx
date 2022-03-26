@@ -1,18 +1,25 @@
+import classNames from 'classnames';
+import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
-import Head from 'next/head';
-import './styles.css';
+import '../styles.css';
 
-function CustomApp({ Component, pageProps }: AppProps): JSX.Element {
+function BBEApp({ Component, pageProps }: AppProps): JSX.Element {
+  const title = 'Berlin Brandenburg eSports e.V.';
+  const description = ''; // TODO: Description
+
   return (
     <>
-      <Head>
-        <title>Welcome to frontend!</title>
-      </Head>
-      <main className="app">
+      <DefaultSeo
+        titleTemplate={`%s | BBE`}
+        defaultTitle={title}
+        description={description}
+        openGraph={{ type: 'website', title, description }}
+      />
+      <main className={classNames('flex', 'flex-col', 'min-h-screen')}>
         <Component {...pageProps} />
       </main>
     </>
   );
 }
 
-export default CustomApp;
+export default BBEApp;
