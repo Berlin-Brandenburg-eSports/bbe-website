@@ -1,7 +1,7 @@
 {
   "npmScope": "bbe",
   "affected": {
-    "defaultBase": "main"
+    "defaultBase": "production"
   },
   "cli": {
     "defaultCollection": "@nrwl/next"

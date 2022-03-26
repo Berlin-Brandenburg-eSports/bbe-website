@@ -5,6 +5,7 @@
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "extends": ["eslint:recommended", "plugin:prettier/recommended"],
       "rules": {
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
@@ -18,13 +19,65 @@
               }
             ]
           }
-        ]
+        ],
+        "arrow-parens": "error",
+        "curly": ["error", "all"],
+        "no-useless-return": "error",
+        "padding-line-between-statements": [
+          "error",
+          {
+            "blankLine": "always",
+            "next": "return",
+            "prev": "*"
+          },
+          {
+            "blankLine": "always",
+            "next": "block",
+            "prev": "*"
+          },
+          {
+            "blankLine": "always",
+            "next": "*",
+            "prev": "block"
+          },
+          {
+            "blankLine": "always",
+            "next": "block-like",
+            "prev": "*"
+          },
+          {
+            "blankLine": "always",
+            "next": "*",
+            "prev": "block-like"
+          }
+        ],
+        "prefer-template": "error"
       }
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "extends": [
+        "plugin:@nrwl/nx/typescript",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": [
+          "error",
+          {
+            "allowExpressions": true
+          }
+        ],
+        "@typescript-eslint/explicit-member-accessibility": "error",
+        "@typescript-eslint/lines-between-class-members": [
+          "error",
+          "always",
+          {
+            "exceptAfterSingleLine": true
+          }
+        ],
+        "no-return-await": "off",
+        "@typescript-eslint/return-await": "error"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

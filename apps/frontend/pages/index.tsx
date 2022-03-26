@@ -1,6 +1,6 @@
 import styles from './index.module.css';
 
-export function Index() {
+export function Index(): JSX.Element {
   /*
    * Replace the elements below with your own.
    *
