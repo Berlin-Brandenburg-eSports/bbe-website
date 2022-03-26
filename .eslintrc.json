@@ -10,14 +10,14 @@
         "@nrwl/nx/enforce-module-boundaries": [
           "error",
           {
-            "enforceBuildableLibDependency": true,
             "allow": [],
             "depConstraints": [
               {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
+                "onlyDependOnLibsWithTags": ["*"],
+                "sourceTag": "*"
               }
-            ]
+            ],
+            "enforceBuildableLibDependency": true
           }
         ],
         "arrow-parens": "error",
@@ -56,10 +56,7 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": [
-        "plugin:@nrwl/nx/typescript",
-        "plugin:@typescript-eslint/recommended"
-      ],
+      "extends": ["plugin:@nrwl/nx/typescript", "plugin:@typescript-eslint/recommended"],
       "rules": {
         "@typescript-eslint/explicit-function-return-type": [
           "error",
@@ -75,8 +72,8 @@
             "exceptAfterSingleLine": true
           }
         ],
-        "no-return-await": "off",
-        "@typescript-eslint/return-await": "error"
+        "@typescript-eslint/return-await": "error",
+        "no-return-await": "off"
       }
     },
     {
