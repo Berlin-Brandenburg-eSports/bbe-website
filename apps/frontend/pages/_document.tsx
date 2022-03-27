@@ -10,7 +10,7 @@ class MyDocument extends Document {
 
   public render(): JSX.Element {
     return (
-      <Html lang="de">
+      <Html lang="de" className={classNames('text-white', 'bg-gray-dark')}>
         <Head>
           <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
           <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
@@ -19,7 +19,7 @@ class MyDocument extends Document {
           <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#5bbad5" />
           <meta name="theme-color" content="#ffffff" />
         </Head>
-        <body className={classNames('text-white', 'bg-gray-dark')}>
+        <body>
           <Main />
           <NextScript />
         </body>

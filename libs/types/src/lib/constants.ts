@@ -9,4 +9,12 @@ export const Pages: Route[] = [
     href: '/satzung',
     title: 'Satzung',
   },
+  {
+    href: '/teams',
+    title: 'Teams',
+  },
+  {
+    href: '/news',
+    title: 'News',
+  },
 ];

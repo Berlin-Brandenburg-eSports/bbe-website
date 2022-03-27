@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar';
 
 interface BaseTemplateProps {
   seo?: NextSeoProps;
+  hasHero?: boolean;
 }
 
 function generateSeo(seo: NextSeoProps): NextSeoProps {
@@ -25,7 +26,7 @@ function generateSeo(seo: NextSeoProps): NextSeoProps {
   };
 }
 
-const BaseTemplate: FC<BaseTemplateProps> = ({ children, seo }) => {
+const BaseTemplate: FC<BaseTemplateProps> = ({ children, seo, hasHero }) => {
   const { pathname } = useRouter();
 
   const pageData = Pages.find(({ href }) => pathname.length > 2 && href.includes(pathname));
@@ -37,7 +38,7 @@ const BaseTemplate: FC<BaseTemplateProps> = ({ children, seo }) => {
       <header>
         <Navbar />
       </header>
-      <main className={classNames('flex-grow')}>{children}</main>
+      <main className={classNames('flex-grow', { 'pt-16': !hasHero })}>{children}</main>
       <footer>
         <Footer />
       </footer>
