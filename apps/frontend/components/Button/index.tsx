@@ -3,7 +3,7 @@ import { AnchorHTMLAttributes, DetailedHTMLProps, forwardRef } from 'react';
 
 type ButtonProps = DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
 
-const Button = forwardRef<HTMLAnchorElement, ButtonProps>(({ onClick, href, ...props }, ref) => {
+const Button = forwardRef<HTMLAnchorElement, ButtonProps>(({ onClick, href, children, ...props }, ref) => {
   return (
     <a
       href={href}
@@ -21,7 +21,7 @@ const Button = forwardRef<HTMLAnchorElement, ButtonProps>(({ onClick, href, ...p
       )}
       {...props}
     >
-      Button
+      {children}
     </a>
   );
 });

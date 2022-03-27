@@ -546,7 +546,7 @@ const StatutePage: NextPage = () => {
           kommt und den allgemeinen Grundsätzen des Vereinsrechts entspricht.
         </section>
         <Button href="/docs/bbe-satzung.pdf" download>
-          Button
+          Download
         </Button>
       </div>
     </BaseTemplate>

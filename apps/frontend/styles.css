@@ -2,61 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-.document section {
-  @apply py-4;
-}
+.document .document .document {
+  @apply max-w-[210mm];
 
-.document h1,
-h2,
-h3,
-h4 {
-  @apply font-bold mb-2 text-center;
-}
+  section {
+    @apply py-4;
+  }
 
-.document h1 {
-  @apply text-2xl;
-}
+  p {
+    @apply text-justify;
+  }
 
-.document h2 {
-  @apply text-xl;
-}
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-bold mb-2 text-center;
+  }
 
-.document h3 {
-  @apply text-lg;
-}
+  h1 {
+    @apply text-2xl;
+  }
 
-.document h4 {
-  @apply text-base;
-}
+  h2 {
+    @apply text-xl;
+  }
 
-.document ol {
-  @apply list-decimal list-outside pl-5;
-}
+  h3 {
+    @apply text-lg;
+  }
 
-.document ol,
-li,
-p {
-  @apply my-1;
-}
+  h4 {
+    @apply text-base;
+  }
 
-.document ol > li:before {
-}
+  ol {
+    @apply list-decimal list-outside pl-5;
+  }
 
-.document ol > li > ol {
-  @apply list-none list-inside;
-  counter-reset: list;
-}
+  ol,
+  li,
+  p {
+    @apply my-1;
+  }
 
-.document ol > li > ol > li {
-  @apply ml-6 table;
-}
+  ol > li > ol {
+    @apply list-none list-inside;
+    counter-reset: list;
+  }
 
-.document ol > li > ol > li:before {
-  @apply table-cell pr-1;
-  content: counter(list, lower-alpha) ') ';
-  counter-increment: list;
-}
+  ol > li > ol > li {
+    @apply ml-6 table;
+  }
 
-.document ol > li > ol > li > ol > li:before {
-  content: counter(list, lower-roman) '. ';
+  ol > li > ol > li:before {
+    @apply table-cell pr-1;
+    content: counter(list, lower-alpha) ') ';
+    counter-increment: list;
+  }
+
+  ol > li > ol > li > ol > li:before {
+    content: counter(list, lower-roman) '. ';
+  }
 }
