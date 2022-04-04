@@ -3,7 +3,7 @@ import { AnchorHTMLAttributes, DetailedHTMLProps, forwardRef } from 'react';
 
 type ButtonProps = DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
 
-const Button = forwardRef<HTMLAnchorElement, ButtonProps>(({ onClick, href, children, ...props }, ref) => {
+const Button = forwardRef<HTMLAnchorElement, ButtonProps>(({ onClick, href, children, className, ...props }, ref) => {
   return (
     <a
       href={href}
@@ -17,7 +17,8 @@ const Button = forwardRef<HTMLAnchorElement, ButtonProps>(({ onClick, href, chil
         'py-2',
         'rounded-sm',
         'transition-colors',
-        'ease-in-out'
+        'ease-in-out',
+        className
       )}
       {...props}
     >

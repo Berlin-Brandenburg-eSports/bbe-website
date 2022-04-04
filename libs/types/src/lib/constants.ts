@@ -2,6 +2,10 @@ import { Route } from './interfaces';
 
 export const Pages: Route[] = [
   {
+    href: '/',
+    title: 'Startseite',
+  },
+  {
     href: '/beitragsordnung',
     title: 'Beitragsordnung',
   },
