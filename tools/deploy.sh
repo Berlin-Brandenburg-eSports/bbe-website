@@ -7,13 +7,13 @@ enviroment="$1";
 
 if [ -z ${enviroment+x} ]
 then
-  echo '\033[0;31mMissing Enviroment';
+  echo 'ERROR: missing enviroment';
   exit 1;
 fi
 
 if [ "$enviroment" != "preview" ] && [ "$enviroment" != "production" ]
 then
-  echo '\033[0;31mAllowed Enviroments: "preview", "production"';
+  echo 'ERROR: allowed enviroments: "preview", "production"';
   exit 1;
 fi
 
@@ -26,29 +26,25 @@ else
   proc="@prod"
 fi
 
-echo "\033[0;32mStarting deployment for '$enviroment' (branch: '$branch')\033[0m";
+echo "Starting deployment for '$enviroment' (branch: '$branch')";
 
-echo "\nInstall Dependencies"
+echo "Install dependencies"
 npm ci --ignore-scripts
 
-echo "\nLint Affected Apps"
 NX_BRANCH="$branch" npx nx affected --target=lint --base="$branch"~1 --head="$branch" --parallel --max-parallel=2
-
-echo "\nTest Affected Apps"
 NX_BRANCH="$branch" npx nx affected --target=test --base="$branch"~1 --head="$branch" --parallel --max-parallel=2
-
 apps=$(NX_BRANCH="$branch" npx nx print-affected --target=build --base="$branch"~1 --head="$branch" --select=tasks.target.project)
 
 if [[ "$apps" == *"backend"* ]]
 then
-  echo "\nBuild Backend"
+  echo "Build Backend"
   NX_BRANCH="$branch" npx nx build backend --configuration=production
   pm2 reload "'$proc'/backend"
 fi
 
 if [[ "$apps" == *"frontend"* ]]
 then
-  echo "\nBuild Frontend"
+  echo "Build Frontend"
   NX_BRANCH="$branch" npx nx build frontend --configuration=production
   pm2 reload "'$proc'/frontend"
 fi
