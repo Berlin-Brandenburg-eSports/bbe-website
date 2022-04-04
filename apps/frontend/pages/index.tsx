@@ -16,8 +16,20 @@ const HomePage: NextPage = () => {
           className={classNames('grayscale', 'blur-sm')}
         />
       </header>
-      <section className={classNames('container', 'grid', 'grid-cols-1', 'sm:grid-cols-3', 'gap-4', 'items-center', 'py-8')}>
-        <div className={classNames('justify-self-center')}>
+      <section
+        className={classNames(
+          'container',
+          'grid',
+          'grid-cols-1',
+          'sm:grid-cols-3',
+          'gap-x-0',
+          'sm:gap-x-4',
+          'gap-y-4',
+          'items-center',
+          'py-8'
+        )}
+      >
+        <div className={classNames('justify-self-center', 'self-center')}>
           <Image
             src="/images/home-header.jpg"
             alt="eSports"
