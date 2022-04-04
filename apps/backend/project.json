@@ -18,6 +18,7 @@
           "extractLicenses": true,
           "inspect": false,
           "generatePackageJson": true,
+          "externalDependencies": "none",
           "fileReplacements": [
             {
               "replace": "apps/backend/src/environments/environment.ts",

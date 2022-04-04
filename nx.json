@@ -1,7 +1,7 @@
 {
   "npmScope": "bbe",
   "affected": {
-    "defaultBase": "production"
+    "defaultBase": "develop"
   },
   "cli": {
     "defaultCollection": "@nrwl/next"
@@ -18,7 +18,7 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "ZjQyMDczNTQtMDYyNC00NmU2LTg0NGYtNzMzZTJmMDEzNzQ3fHJlYWQtd3JpdGU="
+        "accessToken": "MzRjYjM3MWUtZDgwYS00NDdhLWJiYzgtMzFlMzI4ZGQyNWZjfHJlYWQtd3JpdGU="
       }
     }
   },
