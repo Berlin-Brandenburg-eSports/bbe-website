@@ -20,4 +20,4 @@ jobs:
           script: |
             cd ${{ secrets.SSH_TARGET }}
             git pull
-            sh ./tools/deploy.sh preview
+            bash ./tools/deploy.sh preview
