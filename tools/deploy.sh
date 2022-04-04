@@ -46,5 +46,5 @@ if [[ "$apps" == *"frontend"* ]]
 then
   echo "Build Frontend"
   NX_BRANCH="$branch" npx nx build frontend --configuration=production
-  pm2 reload "'$proc'/frontend"
+  pm2 reload "$proc/frontend"
 fi
