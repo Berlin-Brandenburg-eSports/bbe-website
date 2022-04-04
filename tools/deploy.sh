@@ -39,15 +39,14 @@ NX_BRANCH="$branch" npx nx affected --target=test --base="$branch"~1 --head="$br
 
 apps=$(NX_BRANCH="$branch" npx nx print-affected --target=build --base="$branch"~1 --head="$branch" --select=tasks.target.project)
 
-if [ "$apps" == *"backend"* ]
+if [[ "$apps" == *"backend"* ]]
 then
   echo "\nBuild Backend"
   NX_BRANCH="$branch" npx nx build backend --configuration=production
   pm2 reload "'$proc'/backend"
 fi
 
-
-if [ "$apps" == *"frontend"* ]
+if [[ "$apps" == *"frontend"* ]]
 then
   echo "\nBuild Frontend"
   NX_BRANCH="$branch" npx nx build frontend --configuration=production
