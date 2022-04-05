@@ -9,3 +9,5 @@ function calcPath(relativePath) {
 const getEnvVariables = () => {
   return dotenv.parse(fs.readFileSync(calcPath('../.env')));
 };
+
+export { calcPath, getEnvVariables };
