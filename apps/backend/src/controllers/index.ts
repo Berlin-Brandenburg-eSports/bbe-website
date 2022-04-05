@@ -1,7 +1,17 @@
 import { Router } from 'express';
 import { env } from '../configs/env.config';
+import AuthController from './auth.controller';
+import Controller from './base.controller';
+import UserController from './user.controller';
 
 const router = Router();
+
+const controllers: Controller[] = [new UserController(), new AuthController()];
+
+controllers.forEach((controller) => {
+  controller.setupRouter();
+  router.use(controller.router);
+});
 
 router.get('/', (req, res, next) => {
   try {

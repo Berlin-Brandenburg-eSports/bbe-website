@@ -1,9 +1,11 @@
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import corsOptions from './configs/cors.config';
 import { env } from './configs/env.config';
+import { passport } from './configs/passport.config';
 import sessionConfig from './configs/session.config';
 import router from './controllers';
 import { errorHandler, notFound } from './middlewares/error.middleware';
@@ -19,6 +21,9 @@ mongoose
     app.use(express.urlencoded({ extended: false }));
     app.use(cors(corsOptions));
     app.use(sessionConfig);
+    app.use(cookieParser());
+    app.use(passport.initialize());
+    app.use(passport.session());
     app.use(
       morgan('dev', {
         stream: {

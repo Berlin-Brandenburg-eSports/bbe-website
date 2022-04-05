@@ -5,10 +5,10 @@ import { env } from './env.config';
 export default session({
   store: MongoStore.create({ mongoUrl: env.MONGO_URI, collectionName: 'sessions' }),
   secret: env.SESSION_SECRET,
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: (365 * 24 * 60 * 60 * 1000) / 12,
+    maxAge: 1000 * 60 * 24 * 7,
     domain: env.COOKIE_DOMAIN,
   },
   name: env.CONNECTION_COOKIE,
