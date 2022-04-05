@@ -73,7 +73,8 @@
           }
         ],
         "@typescript-eslint/return-await": "error",
-        "no-return-await": "off"
+        "no-return-await": "off",
+        "@typescript-eslint/no-non-null-assertion": "off"
       }
     },
     {

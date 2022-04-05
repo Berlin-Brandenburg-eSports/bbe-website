@@ -9,6 +9,12 @@ export interface Route {
 export interface BackendEnvironment {
   NODE_ENV: NodeEnv;
   PORT: number;
+  FRONTEND_URL: string;
+  API_URL: string;
+  MONGO_URI: string;
+  SESSION_SECRET: string;
+  COOKIE_DOMAIN: string;
+  CONNECTION_COOKIE: string;
 }
 
 export interface FrontendEnvironment {
