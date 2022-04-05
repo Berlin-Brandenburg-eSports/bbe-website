@@ -10,4 +10,4 @@ const getEnvVariables = () => {
   return dotenv.parse(fs.readFileSync(calcPath('../.env')));
 };
 
-export { calcPath, getEnvVariables };
+module.exports = { calcPath, getEnvVariables };
