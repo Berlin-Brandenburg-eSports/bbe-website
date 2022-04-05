@@ -16,15 +16,7 @@
         "production": {
           "optimization": true,
           "extractLicenses": true,
-          "inspect": false,
-          "generatePackageJson": true,
-          "externalDependencies": "none",
-          "fileReplacements": [
-            {
-              "replace": "apps/backend/src/environments/environment.ts",
-              "with": "apps/backend/src/environments/environment.prod.ts"
-            }
-          ]
+          "inspect": false
         }
       }
     },

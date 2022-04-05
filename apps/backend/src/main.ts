@@ -1,13 +1,27 @@
 import express from 'express';
+import morgan from 'morgan';
+import { env } from './configs/env.config';
+import Logger from './utils/logger.util';
 
 const app = express();
+const logger = new Logger('Express');
 
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to backend!' });
+app.use(
+  morgan('dev', {
+    stream: {
+      write: (msg) => {
+        logger.debug(msg.trim());
+      },
+    },
+  })
+);
+
+app.get('/', (_req, res) => {
+  res.send({
+    name: 'Berlin Brandenburg eSports e.V.',
+  });
 });
 
-const port = process.env.port || 3333;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
+app.listen(env.PORT, () => {
+  logger.info(`🚀 Started on http://localhost:${env.PORT}/api`);
 });
-server.on('error', console.error);
