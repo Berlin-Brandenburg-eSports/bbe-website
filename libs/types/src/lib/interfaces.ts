@@ -25,7 +25,7 @@ export interface FrontendEnvironment {
 }
 
 export interface User {
-  id: number;
+  id: string;
   tag: string;
   avatar: string;
   accessToken: string;

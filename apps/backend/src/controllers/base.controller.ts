@@ -1,5 +1,5 @@
 import { User } from '@bbe/types';
-import { IRoute, Request, Router } from 'express';
+import { IRoute, Request, RequestHandler, Router } from 'express';
 import createHttpError from 'http-errors';
 import { UserModel } from '../models/user.model';
 
@@ -27,4 +27,12 @@ export default abstract class Controller {
 
     return user.toJSON();
   }
+
+  protected notAllowed: RequestHandler = async (_req, _res, next) => {
+    try {
+      throw createHttpError(405);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

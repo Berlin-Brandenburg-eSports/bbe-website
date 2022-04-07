@@ -9,7 +9,7 @@ passport.serializeUser((user: User, done) => done(null, user.id));
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await UserModel.findOne({ id: Number(id) }).lean();
+    const user = await UserModel.findOne({ id }).lean();
     if (!user) throw createHttpError(404, `User ${id} not found`);
 
     done(null, user);
@@ -28,9 +28,8 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const id = Number(profile.id);
-        const avatar = profile.avatar;
-        const tag = `${profile.username}#${profile.discriminator}`;
+        const { id, avatar, username, discriminator } = profile;
+        const tag = `${username}#${discriminator}`;
         const user = await UserModel.findOneAndUpdate(
           { id },
           { accessToken, refreshToken, avatar, tag },

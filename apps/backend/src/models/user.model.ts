@@ -20,10 +20,11 @@ function decrypt(text: string): string {
 const UserSchema = new mongoose.Schema<User>(
   {
     id: {
-      type: Number,
+      type: String,
       index: true,
       unique: true,
       required: true,
+      validate: /^[0-9]$/gi,
     },
     tag: {
       type: String,
