@@ -5,7 +5,7 @@ import NextNProgress from 'nextjs-progressbar';
 import '../styles.css';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  const title = 'Berlin Brandenburg eSports e.V.';
+  const title = 'Berlin-Brandenburg eSports e.V.';
   const description = 'We are ready';
 
   return (

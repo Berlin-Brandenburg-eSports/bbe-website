@@ -15,7 +15,7 @@ controllers.forEach((controller) => {
 
 router.get('/', (req, res, next) => {
   try {
-    res.send({ name: 'Berlin Brandenburg eSports e.V.', env: env.NODE_ENV, version: req.baseUrl });
+    res.send({ name: 'Berlin-Brandenburg eSports e.V.', env: env.NODE_ENV, version: req.baseUrl });
   } catch (error) {
     next(error);
   }

@@ -9,7 +9,7 @@ const Footer: FC = () => {
       <div className={classNames('container', 'text-sm', 'py-4')}>
         <div className={classNames('grid', 'grid-cols-1', 'sm:grid-cols-2', 'gap-2', 'justify-items-center')}>
           <div>
-            <Image src="/bbe-logo.png" width={75} height={75} alt="Berlin Brandenburg eSports e.V." />
+            <Image src="/bbe-logo.png" width={75} height={75} alt="Berlin-Brandenburg eSports e.V." />
           </div>
           <div className={classNames('flex', 'flex-col')}>
             <Link href="/satzung">
@@ -23,7 +23,7 @@ const Footer: FC = () => {
             </Link>
           </div>
         </div>
-        <div className={classNames('text-center', 'pt-4')}>&copy; 2022 Berlin Brandenburg eSports e.V.</div>
+        <div className={classNames('text-center', 'pt-4')}>&copy; 2022 Berlin-Brandenburg eSports e.V.</div>
       </div>
     </div>
   );
