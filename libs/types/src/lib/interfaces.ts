@@ -17,7 +17,7 @@ export interface BackendEnvironment {
   CONNECTION_COOKIE: string;
   DISCORD_CLIENT_ID: string;
   DISCORD_CLIENT_SECRET: string;
-  SALT_ROUNDS: number;
+  CRYPTO_SECRET: string;
 }
 
 export interface FrontendEnvironment {
@@ -26,6 +26,8 @@ export interface FrontendEnvironment {
 
 export interface User {
   id: number;
+  tag: string;
+  avatar: string;
   accessToken: string;
   refreshToken: string;
 }

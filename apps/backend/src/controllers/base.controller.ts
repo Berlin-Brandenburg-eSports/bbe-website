@@ -1,6 +1,7 @@
 import { User } from '@bbe/types';
 import { IRoute, Request, Router } from 'express';
 import createHttpError from 'http-errors';
+import { UserModel } from '../models/user.model';
 
 export default abstract class Controller {
   public router = Router();
@@ -12,12 +13,18 @@ export default abstract class Controller {
   }
 
   protected async getUser(req: Request): Promise<User> {
-    const user = req.user as User;
+    if (!req.user) {
+      throw createHttpError(401);
+    }
+
+    const { id } = req.user as User;
+
+    const user = await UserModel.findOne({ id }).select('+accessToken +refreshToken');
 
     if (!user) {
       throw createHttpError(401);
     }
 
-    return user;
+    return user.toJSON();
   }
 }

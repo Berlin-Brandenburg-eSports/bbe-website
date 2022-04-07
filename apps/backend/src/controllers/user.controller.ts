@@ -1,4 +1,5 @@
 import { RequestHandler } from 'express';
+import { UserModel } from '../models/user.model';
 import Controller from './base.controller';
 
 export default class UserController extends Controller {
@@ -8,7 +9,8 @@ export default class UserController extends Controller {
 
   private getUsers: RequestHandler = async (req, res, next) => {
     try {
-      res.send(req.url);
+      const users = await UserModel.find();
+      res.send(users);
     } catch (error) {
       next(error);
     }

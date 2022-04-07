@@ -29,13 +29,17 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       try {
         const id = Number(profile.id);
-        const user = await UserModel.findOneAndUpdate({ id }, { accessToken, refreshToken }, { new: true }).lean();
-        if (user) return done(null, user);
-        const newUser = (await UserModel.create({ id, accessToken, refreshToken })).toJSON();
+        const avatar = profile.avatar;
+        const tag = `${profile.username}#${profile.discriminator}`;
+        const user = await UserModel.findOneAndUpdate(
+          { id },
+          { accessToken, refreshToken, avatar, tag },
+          { new: true, upsert: true }
+        ).lean();
 
-        return done(null, newUser);
+        done(null, user);
       } catch (error) {
-        return done(error);
+        done(error);
       }
     }
   )

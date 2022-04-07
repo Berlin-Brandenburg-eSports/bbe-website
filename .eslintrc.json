@@ -20,6 +20,7 @@
             "enforceBuildableLibDependency": true
           }
         ],
+        "no-console": "error",
         "arrow-parens": "error",
         "curly": ["error", "all"],
         "no-useless-return": "error",
