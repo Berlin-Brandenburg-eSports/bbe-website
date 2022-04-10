@@ -8,7 +8,7 @@ export const env: BackendEnvironment = {
   CONNECTION_COOKIE: process.env.NX_CONNECTION_COOKIE!,
   COOKIE_DOMAIN: process.env.NX_COOKIE_DOMAIN!,
   SESSION_SECRET: process.env.NX_SESSION_SECRET!,
-  MONGO_URI: encodeURIComponent(process.env.NX_MONGO_URI!),
+  MONGO_URI: process.env.NX_MONGO_URI!,
   DISCORD_CLIENT_ID: process.env.NX_DISCORD_CLIENT_ID!,
   DISCORD_CLIENT_SECRET: process.env.NX_DISCORD_CLIENT_SECRET!,
   CRYPTO_SECRET: process.env.NX_CRYPTO_SECRET!,
