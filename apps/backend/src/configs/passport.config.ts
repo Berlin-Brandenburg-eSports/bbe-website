@@ -9,7 +9,7 @@ passport.serializeUser((user: User, done) => done(null, user.id));
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await UserModel.findOne({ id }).lean();
+    const user = await UserModel.findOne({ id }).select('+accessToken +refreshToken').lean();
     if (!user) throw createHttpError(404, `User ${id} not found`);
 
     done(null, user);
@@ -28,11 +28,12 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const { id, avatar, username, discriminator } = profile;
+        const { id, avatar, username, discriminator, guilds = [] } = profile;
         const tag = `${username}#${discriminator}`;
+        const joined = guilds.some(({ id }) => id === '876507985030053999');
         const user = await UserModel.findOneAndUpdate(
           { id },
-          { accessToken, refreshToken, avatar, tag },
+          { accessToken, refreshToken, avatar, tag, username, discriminator, joined },
           { new: true, upsert: true }
         ).lean();
 

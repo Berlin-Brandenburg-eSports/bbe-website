@@ -1,8 +1,13 @@
+import axios from 'axios';
 import classNames from 'classnames';
 import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
 import NextNProgress from 'nextjs-progressbar';
+import { env } from '../configs/env.config';
 import '../styles.css';
+
+axios.defaults.withCredentials = true;
+axios.defaults.baseURL = `${env.API_URL}/v1`;
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const title = 'Berlin-Brandenburg eSports e.V.';

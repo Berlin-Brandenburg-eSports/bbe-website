@@ -22,12 +22,18 @@ export interface BackendEnvironment {
 
 export interface FrontendEnvironment {
   NODE_ENV: NodeEnv;
+  API_URL: string;
+  CONNECTION_COOKIE: string;
 }
 
 export interface User {
   id: string;
+  displayName: string;
+  username: string;
+  discriminator: number;
   tag: string;
   avatar: string;
+  joined: boolean;
   accessToken: string;
   refreshToken: string;
 }

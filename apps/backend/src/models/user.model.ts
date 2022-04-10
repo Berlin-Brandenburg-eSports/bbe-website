@@ -24,7 +24,20 @@ const UserSchema = new mongoose.Schema<User>(
       index: true,
       unique: true,
       required: true,
-      validate: /^[0-9]$/gi,
+      validate: /^[\d]$/gi,
+    },
+    displayName: {
+      type: String,
+      required: true,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    discriminator: {
+      type: Number,
+      required: true,
+      validate: /^[\d]{4}$/,
     },
     tag: {
       type: String,
@@ -36,6 +49,10 @@ const UserSchema = new mongoose.Schema<User>(
     avatar: {
       type: String,
       required: true,
+    },
+    joined: {
+      type: Boolean,
+      default: false,
     },
     accessToken: {
       type: String,
