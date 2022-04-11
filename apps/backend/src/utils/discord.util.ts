@@ -18,13 +18,17 @@ export default class DiscordUtil {
     return user;
   }
 
+  private static getImageType(hash: string): 'gif' | 'png' {
+    return hash.startsWith('a_') ? 'gif' : 'png';
+  }
+
   public static getGuildAvatar(id: string, discriminator: number, hash?: string): string {
     return hash
-      ? `${this.DISCORD_CDN}/guilds/${env.DISCORD_GUILD_ID}/users/${id}/avatars/${hash}.gif`
+      ? `${this.DISCORD_CDN}/guilds/${env.DISCORD_GUILD_ID}/users/${id}/avatars/${hash}.${this.getImageType(hash)}`
       : `${this.DISCORD_CDN}/embed/avatars/${discriminator % 5}.png`;
   }
 
   public static getUserAvatar(id: string, hash: string): string {
-    return `${this.DISCORD_CDN}/guilds/${env.DISCORD_GUILD_ID}/avatars/${id}/${hash}.gif`;
+    return `${this.DISCORD_CDN}/avatars/${id}/${hash}.${this.getImageType(hash)}`;
   }
 }
