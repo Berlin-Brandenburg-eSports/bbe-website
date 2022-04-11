@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema<User>(
       required: true,
       validate: /^[\d]$/gi,
     },
-    displayName: {
+    nick: {
       type: String,
       required: true,
     },

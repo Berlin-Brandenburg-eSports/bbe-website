@@ -21,7 +21,7 @@ const AccountPage: NextPage<AccountPagePros> = ({ user }) => {
   return (
     <BaseTemplate>
       <div className={classNames('container')}>
-        <h1>Hello, {user.tag}</h1>
+        <h1>Hello, {user.nick}</h1>
         <Button onClick={handleLogout}>Logout</Button>
       </div>
     </BaseTemplate>

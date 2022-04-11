@@ -17,6 +17,7 @@ export interface BackendEnvironment {
   CONNECTION_COOKIE: string;
   DISCORD_CLIENT_ID: string;
   DISCORD_CLIENT_SECRET: string;
+  DISCORD_GUILD_ID: string;
   CRYPTO_SECRET: string;
 }
 
@@ -28,7 +29,7 @@ export interface FrontendEnvironment {
 
 export interface User {
   id: string;
-  displayName: string;
+  nick: string;
   username: string;
   discriminator: number;
   tag: string;

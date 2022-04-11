@@ -11,5 +11,6 @@ export const env: BackendEnvironment = {
   MONGO_URI: process.env.NX_MONGO_URI!,
   DISCORD_CLIENT_ID: process.env.NX_DISCORD_CLIENT_ID!,
   DISCORD_CLIENT_SECRET: process.env.NX_DISCORD_CLIENT_SECRET!,
+  DISCORD_GUILD_ID: process.env.NX_DISCORD_GUILD_ID!,
   CRYPTO_SECRET: process.env.NX_CRYPTO_SECRET!,
 };
