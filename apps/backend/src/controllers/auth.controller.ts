@@ -5,12 +5,23 @@ import Controller from './base.controller';
 
 export default class AuthController extends Controller {
   public setupRouter(): void {
+    this.createRoute('/auth').get(this.getAuth).all(this.notAllowed);
     this.createRoute('/auth/login').get(passport.authenticate('discord')).all(this.notAllowed);
     this.createRoute('/auth/discord')
       .get(passport.authenticate('discord', { successRedirect: `${env.FRONTEND_URL}/konto` }), this.discord)
       .all(this.notAllowed);
     this.createRoute('/auth/logout').get(this.logout).all(this.notAllowed);
   }
+
+  private getAuth: RequestHandler = async (req, res) => {
+    try {
+      const user = this.getUser(req);
+
+      res.send({ authenticated: !!user });
+    } catch (error) {
+      res.send({ authenticated: false });
+    }
+  };
 
   private discord: RequestHandler = async (_req, res, next) => {
     try {

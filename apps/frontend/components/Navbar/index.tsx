@@ -1,22 +1,62 @@
 import classNames from 'classnames';
 import Image from 'next/image';
+import Router from 'next/router';
 import { FC, useState } from 'react';
 import { FaBars, FaTimes, FaUserCircle } from 'react-icons/fa';
+import UserService from '../../services/user.service';
+import { useAuth } from '../../utils/auth.util';
+import Avatar from '../Avatar';
 import Link from '../Link';
 import { navbarLinks } from './navbarLinks';
 import Sidebar from './Sidebar';
 
-const Navbar: FC = () => {
-  const [open, setOpen] = useState<boolean>(false);
-  const hrefStyles = classNames('hover:text-primary', 'transition-colors', 'ease-in-out');
+interface UserMenuProps {
+  onClick: () => void;
+}
 
-  const toggleOpen = (): void => {
-    setOpen(!open);
-    document.body.classList.toggle('overflow-hidden');
+const UserMenu: FC<UserMenuProps> = ({ onClick }) => {
+  const handleLogout = async (): Promise<void> => {
+    await UserService.logout();
+    onClick();
+    Router.push('/');
   };
 
-  const onClick = (): void => {
-    document.body.classList.remove('overflow-hidden');
+  return (
+    <div className={classNames('absolute', 'top-full', '-right-2', 'pt-4')}>
+      <ul className={classNames('bg-black', 'bg-opacity-75', 'rounded-b')}>
+        <li>
+          <button className={classNames('px-4', 'py-2', 'text-primary')} onClick={handleLogout}>
+            Abmelden
+          </button>
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+const Navbar: FC = () => {
+  const { data: auth, mutate } = useAuth();
+  const authenticated = !!auth?.authenticated;
+  const [open, setOpen] = useState<boolean>(false);
+  const [userOpen, setUserOpen] = useState<boolean>(false);
+  const hrefStyles = classNames('hover:text-primary', 'transition-colors', 'ease-in-out');
+
+  const toggleOpen =
+    (isOpen: boolean): (() => void) =>
+    () => {
+      if (isOpen) {
+        setOpen(true);
+        document.body.classList.add('overflow-hidden');
+      } else {
+        setOpen(false);
+        document.body.classList.remove('overflow-hidden');
+      }
+    };
+
+  const handleHover = (state?: boolean): (() => void) => {
+    return () => {
+      setUserOpen(state || !userOpen);
+    };
   };
 
   return (
@@ -35,7 +75,7 @@ const Navbar: FC = () => {
         )}
       >
         <div className={classNames('md:container', 'px-4', 'py-4', 'flex', 'items-center', 'justify-between', 'font-bold', 'italic')}>
-          <button onClick={toggleOpen}>
+          <button onClick={toggleOpen(!open)}>
             {open ? (
               <FaTimes className={classNames('flex', 'md:hidden')} size={20} />
             ) : (
@@ -43,7 +83,7 @@ const Navbar: FC = () => {
             )}
           </button>
           <Link href="/">
-            <a onClick={onClick} className={classNames('flex', 'flex', 'items-center', 'md:pr-4')}>
+            <a onClick={toggleOpen(false)} className={classNames('flex', 'flex', 'items-center', 'md:pr-4')}>
               <Image src="/bbe-icon.png" alt="BBE" width={32} height={32} priority />
             </a>
           </Link>
@@ -53,20 +93,26 @@ const Navbar: FC = () => {
               .map(({ href, title }) => (
                 <li key={`navbar-${href}`} className={classNames('px-2', hrefStyles)}>
                   <Link href={href}>
-                    <a onClick={onClick}>{title}</a>
+                    <a onClick={toggleOpen(false)}>{title}</a>
                   </Link>
                 </li>
               ))}
           </ul>
-          <div className={classNames('flex', 'items-center')}>
+          <div
+            className={classNames('flex', 'items-center', 'relative')}
+            onMouseEnter={handleHover(true)}
+            onMouseLeave={handleHover(false)}
+          >
             <Link href="/konto">
-              <a onClick={onClick} className={classNames(hrefStyles, 'ml-4')}>
-                <FaUserCircle size="1.75rem" />
+              <a onClick={toggleOpen(false)} className={classNames(hrefStyles, 'ml-4', 'w-8', 'h-8')}>
+                {authenticated ? <Avatar /> : <FaUserCircle size={32} />}
               </a>
             </Link>
+
+            {userOpen && authenticated && <UserMenu onClick={mutate} />}
           </div>
         </div>
-        <Sidebar open={open} onClick={onClick} />
+        <Sidebar open={open} onClick={toggleOpen(false)} />
       </nav>
       <button
         className={classNames(
@@ -77,7 +123,7 @@ const Navbar: FC = () => {
           'z-10',
           open ? classNames('visible', 'bg-opacity-75') : classNames('invisible', 'bg-opacity-0')
         )}
-        onClick={toggleOpen}
+        onClick={toggleOpen(false)}
       />
     </>
   );
