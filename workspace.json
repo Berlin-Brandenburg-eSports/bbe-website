@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "backend": "apps/backend",
+    "dashboard": "apps/dashboard",
     "frontend": "apps/frontend",
     "types": "libs/types"
   }
