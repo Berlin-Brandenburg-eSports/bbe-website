@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { NextPage } from 'next';
-import Button from '../components/Button';
-import BaseTemplate from '../templates/BaseTemplate';
+import Button from '../../components/Button';
+import BaseTemplate from '../../templates/BaseTemplate';
 
 const StatutePage: NextPage = () => {
   return (

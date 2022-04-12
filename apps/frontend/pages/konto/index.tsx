@@ -2,11 +2,11 @@ import { User } from '@bbe/types';
 import classNames from 'classnames';
 import { GetServerSideProps, NextPage } from 'next';
 import Router from 'next/router';
-import Button from '../components/Button';
-import { env } from '../configs/env.config';
-import UserService from '../services/user.service';
-import BaseTemplate from '../templates/BaseTemplate';
-import AuthUtil from '../utils/auth.util';
+import Button from '../../components/Button';
+import { env } from '../../configs/env.config';
+import UserService from '../../services/user.service';
+import BaseTemplate from '../../templates/BaseTemplate';
+import AuthUtil from '../../utils/auth.util';
 
 interface AccountPagePros {
   user: User;
