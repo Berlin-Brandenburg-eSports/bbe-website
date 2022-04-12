@@ -10,6 +10,7 @@ export interface BackendEnvironment {
   NODE_ENV: NodeEnv;
   PORT: number;
   FRONTEND_URL: string;
+  DASHBOARD_URL: string;
   API_URL: string;
   MONGO_URI: string;
   SESSION_SECRET: string;
@@ -25,6 +26,11 @@ export interface FrontendEnvironment {
   NODE_ENV: NodeEnv;
   API_URL: string;
   CONNECTION_COOKIE: string;
+}
+
+export interface DashboardEnvironment {
+  NODE_ENV: NodeEnv;
+  API_URL: string;
 }
 
 export interface User {

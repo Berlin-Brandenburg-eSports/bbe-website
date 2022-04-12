@@ -4,9 +4,9 @@ import { GetServerSideProps, NextPage } from 'next';
 import Router from 'next/router';
 import Button from '../../components/Button';
 import { env } from '../../configs/env.config';
+import AuthService from '../../services/auth.service';
 import UserService from '../../services/user.service';
 import BaseTemplate from '../../templates/BaseTemplate';
-import AuthUtil from '../../utils/auth.util';
 
 interface AccountPagePros {
   user: User;
@@ -30,7 +30,7 @@ const AccountPage: NextPage<AccountPagePros> = ({ user }) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
-    const cookies = AuthUtil.getCookies(context);
+    const cookies = AuthService.getCookies(context);
     const user = await UserService.getMe(cookies);
 
     return { props: { user } };

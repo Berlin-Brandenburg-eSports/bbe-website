@@ -8,7 +8,7 @@ export default class AuthController extends Controller {
     this.createRoute('/auth').get(this.getAuth).all(this.notAllowed);
     this.createRoute('/auth/login').get(passport.authenticate('discord')).all(this.notAllowed);
     this.createRoute('/auth/discord')
-      .get(passport.authenticate('discord', { successRedirect: `${env.FRONTEND_URL}/konto` }), this.discord)
+      .get(passport.authenticate('discord', { successReturnToOrRedirect: `${env.FRONTEND_URL}/konto` }), this.discord)
       .all(this.notAllowed);
     this.createRoute('/auth/logout').get(this.logout).all(this.notAllowed);
   }
