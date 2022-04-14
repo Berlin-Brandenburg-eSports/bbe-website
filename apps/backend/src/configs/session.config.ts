@@ -10,6 +10,7 @@ export default session({
   cookie: {
     maxAge: 1000 * 60 * 24 * 7,
     domain: env.COOKIE_DOMAIN,
+    secure: env.NODE_ENV === 'production',
   },
   name: env.CONNECTION_COOKIE,
 });

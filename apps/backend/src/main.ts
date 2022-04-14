@@ -1,6 +1,8 @@
+import { User } from '@bbe/types';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
+import { Session } from 'express-session';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import corsOptions from './configs/cors.config';
@@ -10,6 +12,15 @@ import sessionConfig from './configs/session.config';
 import router from './controllers';
 import { errorHandler, notFound } from './middlewares/error.middleware';
 import Logger from './utils/logger.util';
+
+declare module 'express-serve-static-core' {
+  interface Request {
+    user?: User;
+    session: Session & {
+      redirect?: string;
+    };
+  }
+}
 
 const app = express();
 const logger = new Logger('Express');

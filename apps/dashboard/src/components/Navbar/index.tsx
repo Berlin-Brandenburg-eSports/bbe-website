@@ -2,6 +2,7 @@ import { DarkMode as MoonIcon, LightMode as SunIcon, Menu as MenuIcon } from '@m
 import {
   AppBar,
   Box,
+  Checkbox,
   Divider,
   Drawer,
   Hidden,
@@ -11,7 +12,6 @@ import {
   ListItemIcon,
   ListItemText,
   PaletteMode,
-  Switch,
   Toolbar,
   Typography,
 } from '@mui/material';
@@ -89,38 +89,48 @@ const Navbar: FC<NavbarProps> = ({ authenticated, setTheme, theme }) => {
             </Typography>
           </Box>
           <Box>
-            <Switch color="secondary" icon={<SunIcon />} checkedIcon={<MoonIcon />} onClick={toggleTheme} checked={theme === 'dark'} />
+            <Checkbox
+              color="secondary"
+              icon={<SunIcon sx={{ color: 'white' }} />}
+              checkedIcon={<MoonIcon sx={{ color: 'white' }} />}
+              onClick={toggleTheme}
+              checked={theme === 'dark'}
+            />
           </Box>
         </Toolbar>
       </AppBar>
-      <Hidden smUp>
-        <Drawer
-          variant="temporary"
-          ModalProps={{ keepMounted: true }}
-          open={open}
-          onClose={toggleDrawer}
-          draggable
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-          }}
-        >
-          <NavbarLinks />
-        </Drawer>
-      </Hidden>
-      <Hidden smDown>
-        <Drawer
-          variant="permanent"
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-          }}
-        >
-          <NavbarLinks />
-        </Drawer>
-      </Hidden>
+      {authenticated && (
+        <>
+          <Hidden smUp>
+            <Drawer
+              variant="temporary"
+              ModalProps={{ keepMounted: true }}
+              open={open}
+              onClose={toggleDrawer}
+              draggable
+              sx={{
+                width: drawerWidth,
+                flexShrink: 0,
+                [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+              }}
+            >
+              <NavbarLinks />
+            </Drawer>
+          </Hidden>
+          <Hidden smDown>
+            <Drawer
+              variant="permanent"
+              sx={{
+                width: drawerWidth,
+                flexShrink: 0,
+                [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+              }}
+            >
+              <NavbarLinks />
+            </Drawer>
+          </Hidden>
+        </>
+      )}
     </>
   );
 };

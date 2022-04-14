@@ -1,15 +1,14 @@
 import { RequestHandler } from 'express';
 import passport from 'passport';
 import { env } from '../configs/env.config';
+import { setRedirect } from '../middlewares/auth.middleware';
 import Controller from './base.controller';
 
 export default class AuthController extends Controller {
   public setupRouter(): void {
     this.createRoute('/auth').get(this.getAuth).all(this.notAllowed);
-    this.createRoute('/auth/login').get(passport.authenticate('discord')).all(this.notAllowed);
-    this.createRoute('/auth/discord')
-      .get(passport.authenticate('discord', { successReturnToOrRedirect: `${env.FRONTEND_URL}/konto` }), this.discord)
-      .all(this.notAllowed);
+    this.createRoute('/auth/login').get(setRedirect, passport.authenticate('discord')).all(this.notAllowed);
+    this.createRoute('/auth/discord').get(passport.authenticate('discord'), this.discord).all(this.notAllowed);
     this.createRoute('/auth/logout').get(this.logout).all(this.notAllowed);
   }
 
@@ -23,9 +22,10 @@ export default class AuthController extends Controller {
     }
   };
 
-  private discord: RequestHandler = async (_req, res, next) => {
+  private discord: RequestHandler = async (req, res, next) => {
     try {
-      res.send({ message: 'Success' });
+      res.redirect(req.session.redirect || env.FRONTEND_URL);
+      delete req.session.redirect;
     } catch (error) {
       next(error);
     }
