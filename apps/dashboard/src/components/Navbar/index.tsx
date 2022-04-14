@@ -16,6 +16,7 @@ import {
   Typography,
 } from '@mui/material';
 import { FC, useState } from 'react';
+import { routes } from '../../configs/routes.config';
 
 interface NavbarProps {
   authenticated: boolean;
@@ -40,12 +41,12 @@ const NavbarLinks: FC = () => {
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
+          {routes.map(({ path }) => (
+            <ListItem button key={path}>
               <ListItemIcon>
                 <MenuIcon />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={path} />
             </ListItem>
           ))}
         </List>

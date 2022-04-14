@@ -2,6 +2,7 @@ import { Box, createTheme, CssBaseline, PaletteMode, ThemeProvider, Toolbar } fr
 import { FC, useMemo } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import { routes } from './configs/routes.config';
 import LoginPage from './pages/login';
 import { useAuth } from './services/auth.service';
 import useLocalStorage from './utils/localstorage.util';
@@ -33,7 +34,13 @@ const App: FC = () => {
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
             <Toolbar />
             <Switch>
-              <Route path="/" component={LoginPage} />
+              {routes.map(({ path, component }) => {
+                if (!authenticated) {
+                  return <Route component={LoginPage} key={path} />;
+                }
+
+                return <Route component={component} path={path} exact key={path} />;
+              })}
             </Switch>
           </Box>
         </Box>
