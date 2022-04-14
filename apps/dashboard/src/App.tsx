@@ -28,7 +28,7 @@ const App: FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
+      <Router basename="/admin">
         <Box display="flex">
           <Navbar authenticated={authenticated} setTheme={setMode} theme={mode} />
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

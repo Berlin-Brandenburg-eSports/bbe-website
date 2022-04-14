@@ -26,8 +26,7 @@
           "sourceMap": false,
           "namedChunks": false,
           "extractLicenses": true,
-          "vendorChunk": false,
-          "baseHref": "/admin"
+          "vendorChunk": false
         }
       }
     },
