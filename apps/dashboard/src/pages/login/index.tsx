@@ -8,7 +8,7 @@ const LoginPage: FC = () => {
   const { pathname } = useLocation();
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center">
+    <Box display="flex" justifyContent="center" alignItems="center" top={0} bottom={0} left={0} right={0}>
       <Button variant="contained" href={`${env.API_URL}/v1/auth/login?ref=${pathname}`}>
         <FaDiscord style={{ marginRight: '0.5rem' }} />
         Login with Discord

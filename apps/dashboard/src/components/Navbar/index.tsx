@@ -18,8 +18,9 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 import { FC, useEffect, useState } from 'react';
+import { IconContext } from 'react-icons/lib';
 import { MdDarkMode, MdLightMode, MdMenu } from 'react-icons/md';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { routes } from '../../configs/routes.config';
 
 interface NavbarProps {
@@ -29,19 +30,28 @@ interface NavbarProps {
 }
 
 const NavbarLinks: FC = () => {
+  const handleLogout = async (): Promise<void> => {
+    await axios.get('/auth/logout');
+    window.location.reload();
+  };
+
   return (
     <>
       <Toolbar />
-      <Box sx={{ overflow: 'auto' }}>
+      <Box sx={{ overflow: 'auto' }} flexGrow="1">
         <List>
           {routes.map(({ path, label, icon }) => (
-            <ListItem button key={path}>
-              <ListItemIcon>{icon}</ListItemIcon>
+            <ListItem key={path} button component={NavLink} to={path}>
+              <ListItemIcon color="inherit">
+                <IconContext.Provider value={{ size: '1.5rem' }}>{icon}</IconContext.Provider>
+              </ListItemIcon>
               <ListItemText primary={label} />
             </ListItem>
           ))}
         </List>
       </Box>
+      <Divider />
+      <Button onClick={handleLogout}>Logout</Button>
     </>
   );
 };
@@ -60,11 +70,6 @@ const Navbar: FC<NavbarProps> = ({ authenticated, setTheme, theme }) => {
   const toggleTheme = (): void => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(newTheme);
-  };
-
-  const handleLogout = async (): Promise<void> => {
-    await axios.get('/auth/logout');
-    window.location.reload();
   };
 
   useEffect(() => {
@@ -132,8 +137,6 @@ const Navbar: FC<NavbarProps> = ({ authenticated, setTheme, theme }) => {
               }}
             >
               <NavbarLinks />
-              <Divider />
-              <Button onClick={handleLogout}>Logout</Button>
             </Drawer>
           </Hidden>
         </>

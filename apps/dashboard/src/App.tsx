@@ -3,6 +3,7 @@ import { FC, useMemo } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { routes } from './configs/routes.config';
+import NotFound from './pages/404';
 import LoginPage from './pages/login';
 import { useAuth } from './services/auth.service';
 import useLocalStorage from './utils/localstorage.util';
@@ -28,10 +29,10 @@ const App: FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router basename="/admin">
-        <Box display="flex">
+      <Router>
+        <Box display="flex" minHeight="100vh">
           <Navbar authenticated={authenticated} setTheme={setMode} theme={mode} />
-          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Box component="main" flexGrow="1" padding={3} position="relative">
             <Toolbar />
             <Switch>
               {routes.map(({ path, component }) => {
@@ -41,6 +42,7 @@ const App: FC = () => {
 
                 return <Route component={component} path={path} exact key={path} />;
               })}
+              <Route component={NotFound} />
             </Switch>
           </Box>
         </Box>
