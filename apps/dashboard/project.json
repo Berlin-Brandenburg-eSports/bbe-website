@@ -10,7 +10,7 @@
       "options": {
         "compiler": "babel",
         "outputPath": "dist/apps/dashboard",
-        "index": "apps/dashboard/public/index.html",
+        "index": "apps/dashboard/src/index.html",
         "baseHref": "/",
         "main": "apps/dashboard/src/main.tsx",
         "polyfills": "apps/dashboard/src/polyfills.ts",
