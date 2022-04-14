@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import { FC } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
-import { useUser } from '../../utils/user.util';
+import { useUser } from '../../services/user.service';
 
 interface AvatarProps {
   size?: number;

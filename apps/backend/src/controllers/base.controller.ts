@@ -16,7 +16,7 @@ export default abstract class Controller {
       throw createHttpError(401);
     }
 
-    return req.user as User;
+    return req.user;
   }
 
   protected notAllowed: RequestHandler = async (_req, _res, next) => {

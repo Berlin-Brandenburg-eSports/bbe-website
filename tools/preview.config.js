@@ -17,5 +17,13 @@ module.exports = {
       log_date_format: 'YYYY-MM-DD HH:mm Z',
       env: getEnvVariables(),
     },
+    {
+      name: '@dev/dashboard',
+      cwd: calcPath('../dist/apps/dashboard'),
+      script: 'npx',
+      args: 'serve -s ./ -p 5000',
+      log_date_format: 'YYYY-MM-DD HH:mm Z',
+      env: getEnvVariables(),
+    },
   ],
 };
