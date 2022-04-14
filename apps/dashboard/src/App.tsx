@@ -2,6 +2,7 @@ import { Box, createTheme, CssBaseline, PaletteMode, ThemeProvider, Toolbar } fr
 import { FC, useMemo } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import { env } from './configs/env.config';
 import { routes } from './configs/routes.config';
 import NotFound from './pages/404';
 import LoginPage from './pages/login';
@@ -29,7 +30,7 @@ const App: FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
+      <Router basename={env.NODE_ENV === 'production' ? '/admin' : '/'}>
         <Box display="flex" minHeight="100vh">
           <Navbar authenticated={authenticated} setTheme={setMode} theme={mode} />
           <Box component="main" flexGrow="1" padding={3} position="relative">
