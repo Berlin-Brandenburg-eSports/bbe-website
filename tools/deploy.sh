@@ -48,3 +48,10 @@ then
   NX_BRANCH="$branch" npx nx build frontend --configuration=production
   pm2 reload "$proc/frontend"
 fi
+
+if [[ "$apps" == *"dashboard"* ]]
+then
+  echo "Build Dashboard"
+  NX_BRANCH="$branch" npx nx build dashboard --configuration=production
+  pm2 reload "$proc/dashboard"
+fi

@@ -20,10 +20,9 @@ module.exports = {
     {
       name: '@dev/dashboard',
       cwd: calcPath('../dist/apps/dashboard'),
-      script: 'npx',
-      args: 'serve -s ./ -p 5000',
+      script: 'serve',
       log_date_format: 'YYYY-MM-DD HH:mm Z',
-      env: getEnvVariables(),
+      env: { ...getEnvVariables(), PM2_SERVE_PATH: '.', PM2_SERVE_PORT: 5000, PM2_SERVE_SPA: 'true', PM2_SERVE_HOMEPAGE: './index.html' },
     },
   ],
 };
