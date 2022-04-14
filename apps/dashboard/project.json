@@ -27,7 +27,7 @@
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false,
-          "baseHref": "/admin"
+          "baseHref": "/admin/"
         }
       }
     },
