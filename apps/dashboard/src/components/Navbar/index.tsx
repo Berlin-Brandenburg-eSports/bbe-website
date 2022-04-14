@@ -1,7 +1,7 @@
-import { DarkMode as MoonIcon, LightMode as SunIcon, Menu as MenuIcon } from '@mui/icons-material';
 import {
   AppBar,
   Box,
+  Button,
   Checkbox,
   Divider,
   Drawer,
@@ -12,10 +12,14 @@ import {
   ListItemIcon,
   ListItemText,
   PaletteMode,
+  SwipeableDrawer,
   Toolbar,
   Typography,
 } from '@mui/material';
-import { FC, useState } from 'react';
+import axios from 'axios';
+import { FC, useEffect, useState } from 'react';
+import { MdDarkMode, MdLightMode, MdMenu } from 'react-icons/md';
+import { useLocation } from 'react-router-dom';
 import { routes } from '../../configs/routes.config';
 
 interface NavbarProps {
@@ -30,23 +34,10 @@ const NavbarLinks: FC = () => {
       <Toolbar />
       <Box sx={{ overflow: 'auto' }}>
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                <MenuIcon />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {routes.map(({ path }) => (
+          {routes.map(({ path, label, icon }) => (
             <ListItem button key={path}>
-              <ListItemIcon>
-                <MenuIcon />
-              </ListItemIcon>
-              <ListItemText primary={path} />
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText primary={label} />
             </ListItem>
           ))}
         </List>
@@ -56,8 +47,11 @@ const NavbarLinks: FC = () => {
 };
 
 const Navbar: FC<NavbarProps> = ({ authenticated, setTheme, theme }) => {
+  const { pathname } = useLocation();
   const [open, setOpen] = useState<boolean>(false);
   const drawerWidth = 240;
+  const defaultTitle = 'BBE Dashboard';
+  const pageTitle = routes.find(({ path }) => path === pathname)?.label || defaultTitle;
 
   const toggleDrawer = (): void => {
     setOpen(!open);
@@ -68,11 +62,20 @@ const Navbar: FC<NavbarProps> = ({ authenticated, setTheme, theme }) => {
     setTheme(newTheme);
   };
 
+  const handleLogout = async (): Promise<void> => {
+    await axios.get('/auth/logout');
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    document.title = pageTitle !== defaultTitle ? `${defaultTitle} | ${pageTitle}` : defaultTitle;
+  }, [pageTitle]);
+
   return (
     <>
       <AppBar position="fixed" enableColorOnDark sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Box>
+          <Box display="flex" alignItems="center">
             <Hidden smUp>
               <IconButton
                 color="inherit"
@@ -82,18 +85,18 @@ const Navbar: FC<NavbarProps> = ({ authenticated, setTheme, theme }) => {
                   marginRight: theme.spacing(1),
                 })}
               >
-                <MenuIcon />
+                <MdMenu />
               </IconButton>
             </Hidden>
             <Typography variant="h6" noWrap>
-              BBE Dashboard
+              {pageTitle}
             </Typography>
           </Box>
           <Box>
             <Checkbox
               color="secondary"
-              icon={<SunIcon sx={{ color: 'white' }} />}
-              checkedIcon={<MoonIcon sx={{ color: 'white' }} />}
+              icon={<MdLightMode color="white" />}
+              checkedIcon={<MdDarkMode color="white" />}
               onClick={toggleTheme}
               checked={theme === 'dark'}
             />
@@ -103,10 +106,11 @@ const Navbar: FC<NavbarProps> = ({ authenticated, setTheme, theme }) => {
       {authenticated && (
         <>
           <Hidden smUp>
-            <Drawer
+            <SwipeableDrawer
               variant="temporary"
               ModalProps={{ keepMounted: true }}
               open={open}
+              onOpen={toggleDrawer}
               onClose={toggleDrawer}
               draggable
               sx={{
@@ -116,7 +120,7 @@ const Navbar: FC<NavbarProps> = ({ authenticated, setTheme, theme }) => {
               }}
             >
               <NavbarLinks />
-            </Drawer>
+            </SwipeableDrawer>
           </Hidden>
           <Hidden smDown>
             <Drawer
@@ -128,6 +132,8 @@ const Navbar: FC<NavbarProps> = ({ authenticated, setTheme, theme }) => {
               }}
             >
               <NavbarLinks />
+              <Divider />
+              <Button onClick={handleLogout}>Logout</Button>
             </Drawer>
           </Hidden>
         </>
