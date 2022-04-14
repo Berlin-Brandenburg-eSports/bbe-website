@@ -37,7 +37,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   } catch (error) {
     return {
       redirect: {
-        destination: `${env.API_URL}/v1/auth/login`,
+        destination: `${env.API_URL}/v1/auth/login?ref=konto`,
         permanent: false,
       },
     };
