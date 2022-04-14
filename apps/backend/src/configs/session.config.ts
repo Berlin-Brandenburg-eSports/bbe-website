@@ -7,6 +7,7 @@ export default session({
   secret: env.SESSION_SECRET,
   resave: true,
   saveUninitialized: false,
+  proxy: true,
   cookie: {
     maxAge: 1000 * 60 * 24 * 7,
     domain: env.COOKIE_DOMAIN,
