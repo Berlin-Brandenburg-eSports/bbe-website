@@ -16,7 +16,7 @@ export default class AuthController extends Controller {
     try {
       const user = this.getUser(req);
 
-      res.send({ authenticated: !!user });
+      res.send({ authenticated: !!user, role: user.role });
     } catch (error) {
       res.send({ authenticated: false });
     }

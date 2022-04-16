@@ -1,3 +1,4 @@
+import { Auth, Role } from '@bbe/types';
 import {
   AppBar,
   Box,
@@ -23,8 +24,7 @@ import { MdDarkMode, MdLightMode, MdMenu } from 'react-icons/md';
 import { NavLink, useLocation } from 'react-router-dom';
 import { routes } from '../../configs/routes.config';
 
-interface NavbarProps {
-  authenticated: boolean;
+interface NavbarProps extends Auth {
   theme: PaletteMode;
   setTheme: (value: PaletteMode | ((val: PaletteMode) => PaletteMode)) => void;
 }
@@ -56,7 +56,7 @@ const NavbarLinks: FC = () => {
   );
 };
 
-const Navbar: FC<NavbarProps> = ({ authenticated, setTheme, theme }) => {
+const Navbar: FC<NavbarProps> = ({ authenticated, role, setTheme, theme }) => {
   const { pathname } = useLocation();
   const [open, setOpen] = useState<boolean>(false);
   const drawerWidth = 240;
@@ -108,7 +108,7 @@ const Navbar: FC<NavbarProps> = ({ authenticated, setTheme, theme }) => {
           </Box>
         </Toolbar>
       </AppBar>
-      {authenticated && (
+      {authenticated && role >= Role.CommunityManagement && (
         <>
           <Hidden smUp>
             <SwipeableDrawer

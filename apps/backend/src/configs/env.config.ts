@@ -13,5 +13,6 @@ export const env: BackendEnvironment = {
   DISCORD_CLIENT_ID: process.env.NX_DISCORD_CLIENT_ID!,
   DISCORD_CLIENT_SECRET: process.env.NX_DISCORD_CLIENT_SECRET!,
   DISCORD_GUILD_ID: process.env.NX_DISCORD_GUILD_ID!,
+  DISCORD_TOKEN: process.env.NX_DISCORD_TOKEN!,
   CRYPTO_SECRET: process.env.NX_CRYPTO_SECRET!,
 };

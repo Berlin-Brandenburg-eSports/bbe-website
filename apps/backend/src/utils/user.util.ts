@@ -23,17 +23,17 @@ export default class UserUtil {
     return user;
   }
 
-  public static async buildUser(params: Profile & { accessToken: string; refreshToken: string }): Promise<User> {
+  public static async buildUser(params: Profile & { accessToken: string; refreshToken: string }): Promise<Partial<User>> {
     const { id, guilds = [] } = params;
-    const joined = guilds.some(({ id }) => id === env.DISCORD_GUILD_ID);
+    const discord = guilds.some(({ id }) => id === env.DISCORD_GUILD_ID);
     const discriminator = Number(params.discriminator);
     const avatar = params.avatar === null ? '' : params.avatar;
 
     const tag = `${params.username}#${params.discriminator}`;
     const avatarUrl = DiscordUtil.getUserAvatar(params.id, avatar);
-    const user: User = { ...params, avatar: avatarUrl, tag, nick: params.username, discriminator, joined };
+    const user: Partial<User> = { ...params, avatar: avatarUrl, tag, nick: params.username, discriminator, discord, website: true };
 
-    if (joined) {
+    if (discord) {
       try {
         const guildUser = await DiscordUtil.getGuildMe(params.accessToken);
 

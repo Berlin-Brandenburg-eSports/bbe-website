@@ -1,4 +1,4 @@
-import { User } from '@bbe/types';
+import { Role, User } from '@bbe/types';
 import { IRoute, Request, RequestHandler, Router } from 'express';
 import createHttpError from 'http-errors';
 
@@ -11,9 +11,13 @@ export default abstract class Controller {
     return this.router.route(endpoint.toString());
   }
 
-  protected getUser(req: Request): User {
+  protected getUser(req: Request, role?: Role): User {
     if (!req.user) {
       throw createHttpError(401);
+    }
+
+    if (role && req.user.role < role) {
+      throw createHttpError(403);
     }
 
     return req.user;

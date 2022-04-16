@@ -12,6 +12,7 @@ export default class UserController extends Controller {
   private getUsers: RequestHandler = async (_req, res, next) => {
     try {
       const users = await UserUtil.getUsers();
+
       res.send(users);
     } catch (error) {
       next(error);
@@ -31,8 +32,8 @@ export default class UserController extends Controller {
   private getUserById: RequestHandler = async (req, res, next) => {
     try {
       const { id } = req.params;
-
       const user = await UserUtil.getUserById(id);
+
       res.send(user);
     } catch (error) {
       next(error);

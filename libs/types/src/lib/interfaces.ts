@@ -1,3 +1,4 @@
+import { Role } from './enums';
 import { Href, NodeEnv } from './types';
 
 export interface Route {
@@ -19,6 +20,7 @@ export interface BackendEnvironment {
   DISCORD_CLIENT_ID: string;
   DISCORD_CLIENT_SECRET: string;
   DISCORD_GUILD_ID: string;
+  DISCORD_TOKEN: string;
   CRYPTO_SECRET: string;
 }
 
@@ -33,6 +35,13 @@ export interface DashboardEnvironment {
   API_URL: string;
 }
 
+export interface Payment {
+  accountOwner?: string;
+  institution: string;
+  iban: string;
+  bic: string;
+}
+
 export interface User {
   id: string;
   nick: string;
@@ -40,7 +49,24 @@ export interface User {
   discriminator: number;
   tag: string;
   avatar: string;
-  joined: boolean;
+  discord: boolean;
+  website: boolean;
   accessToken: string;
   refreshToken: string;
+  firstname: string;
+  lastname: string;
+  address1: string;
+  address2: string;
+  zip: number;
+  city: string;
+  role: Role;
+  email: string;
+  phone: string;
+  birthday?: Date;
+  payment?: Payment;
+}
+
+export interface Auth {
+  authenticated: boolean;
+  role: Role;
 }
