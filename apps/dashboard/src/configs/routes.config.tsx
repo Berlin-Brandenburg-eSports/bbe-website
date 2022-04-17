@@ -1,5 +1,6 @@
 import { ComponentType, ReactNode } from 'react';
-import { MdHome, MdSupervisedUserCircle } from 'react-icons/md';
+import { MdHome, MdPerson, MdSupervisedUserCircle } from 'react-icons/md';
+import DepartmentsPage from '../pages/departments';
 import HomePage from '../pages/home';
 import MembersPage from '../pages/members';
 
@@ -19,7 +20,13 @@ export const routes: DashboardRoute[] = [
   {
     path: '/members',
     label: 'Mitglieder',
-    icon: <MdSupervisedUserCircle />,
+    icon: <MdPerson />,
     component: MembersPage,
+  },
+  {
+    path: '/departments',
+    label: 'Abteilungen',
+    icon: <MdSupervisedUserCircle />,
+    component: DepartmentsPage,
   },
 ];

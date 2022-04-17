@@ -1,8 +1,8 @@
 export enum Role {
-  User,
-  ParticipatingMember,
-  ActiveMember,
-  Department,
-  Board,
-  Admin,
+  User = 'USER',
+  ParticipatingMember = 'P_MEMBER',
+  ActiveMember = 'A_MEMBER',
+  Department = 'DEPARTMENT',
+  Board = 'BOARD',
+  Admin = 'ADMIN',
 }

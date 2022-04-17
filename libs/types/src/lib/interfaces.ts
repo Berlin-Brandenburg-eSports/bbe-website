@@ -48,7 +48,7 @@ export interface Contact {
   lastname: string;
   address1: string;
   address2: string;
-  zip: number;
+  zip: string;
   city: string;
   email: string;
   phone: string;
@@ -73,10 +73,31 @@ export interface User {
   discord: Discord;
   contact: Contact;
   role: Role;
+  teams: Array<Team['slug']>;
   payment?: Payment;
 }
 
 export interface Auth {
   authenticated: boolean;
   role: Role;
+}
+
+export interface Department {
+  name: string;
+  slug: string;
+  roleId: string;
+  leader?: User['id'];
+}
+
+export interface Team {
+  name: string;
+  slug: string;
+  members: Array<User['id']>;
+  game: Game['slug'];
+}
+
+export interface Game {
+  name: string;
+  slug: string;
+  teams: Array<Team['slug']>;
 }

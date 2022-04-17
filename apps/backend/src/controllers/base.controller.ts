@@ -1,4 +1,5 @@
 import { Role, User } from '@bbe/types';
+import { hasPermission } from '@bbe/utils';
 import { IRoute, Request, RequestHandler, Router } from 'express';
 import createHttpError from 'http-errors';
 
@@ -16,7 +17,7 @@ export default abstract class Controller {
       throw createHttpError(401);
     }
 
-    if (role && req.user.role < role) {
+    if (role && !hasPermission(req.user.role, role)) {
       throw createHttpError(403);
     }
 

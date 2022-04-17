@@ -10,9 +10,9 @@ export const errorHandler: ErrorRequestHandler = (err: HttpError, _req, res, nex
     return next(err);
   }
 
-  const { status = 500, ...rest } = err;
+  const { status = 500, message: msg, ...rest } = err;
 
-  const message = err._message || err.message;
+  const message = err._message || msg;
   const error = err.errors || rest;
 
   logger.error(message, error);

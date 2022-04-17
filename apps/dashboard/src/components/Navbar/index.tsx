@@ -1,10 +1,10 @@
 import { Auth, Role } from '@bbe/types';
+import { hasPermission } from '@bbe/utils';
 import {
   AppBar,
   Box,
   Button,
   Checkbox,
-  Divider,
   Drawer,
   Hidden,
   IconButton,
@@ -30,11 +30,6 @@ interface NavbarProps extends Auth {
 }
 
 const NavbarLinks: FC = () => {
-  const handleLogout = async (): Promise<void> => {
-    await axios.get('/auth/logout');
-    window.location.reload();
-  };
-
   return (
     <>
       <Toolbar />
@@ -50,8 +45,6 @@ const NavbarLinks: FC = () => {
           ))}
         </List>
       </Box>
-      <Divider />
-      <Button onClick={handleLogout}>Logout</Button>
     </>
   );
 };
@@ -62,6 +55,11 @@ const Navbar: FC<NavbarProps> = ({ authenticated, role, setTheme, theme }) => {
   const drawerWidth = 240;
   const defaultTitle = 'BBE Dashboard';
   const pageTitle = routes.find(({ path }) => path === pathname)?.label || defaultTitle;
+
+  const handleLogout = async (): Promise<void> => {
+    await axios.get('/auth/logout');
+    window.location.reload();
+  };
 
   const toggleDrawer = (): void => {
     setOpen(!open);
@@ -97,7 +95,7 @@ const Navbar: FC<NavbarProps> = ({ authenticated, role, setTheme, theme }) => {
               {pageTitle}
             </Typography>
           </Box>
-          <Box>
+          <Box display="flex" alignItems="center">
             <Checkbox
               color="secondary"
               icon={<MdLightMode color="white" />}
@@ -105,10 +103,13 @@ const Navbar: FC<NavbarProps> = ({ authenticated, role, setTheme, theme }) => {
               onClick={toggleTheme}
               checked={theme === 'dark'}
             />
+            <Button onClick={handleLogout} color="inherit" variant="outlined" sx={(theme) => ({ marginLeft: theme.spacing(1) })}>
+              Logout
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>
-      {authenticated && role >= Role.Department && (
+      {authenticated && hasPermission(role, Role.Department) && (
         <>
           <Hidden smUp>
             <SwipeableDrawer

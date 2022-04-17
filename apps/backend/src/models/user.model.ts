@@ -125,8 +125,11 @@ const ContactSchema = new mongoose.Schema<Contact>(
       default: '',
     },
     zip: {
-      type: Number,
-      default: -1,
+      type: String,
+      default: '',
+      validate: {
+        validator: (zip: string) => (!zip.length ? true : validator.isPostalCode(zip, 'DE')),
+      },
     },
     birthday: {
       type: Date,
@@ -182,7 +185,7 @@ const UserSchema = new mongoose.Schema<User>(
       required: true,
     },
     role: {
-      type: Number,
+      type: String,
       enum: Role,
       default: Role.User,
     },
@@ -192,6 +195,10 @@ const UserSchema = new mongoose.Schema<User>(
     contact: {
       type: ContactSchema,
       required: true,
+    },
+    teams: {
+      type: [String],
+      default: [],
     },
   },
   { timestamps: true, toJSON: { getters: true } }

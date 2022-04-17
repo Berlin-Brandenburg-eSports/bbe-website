@@ -19,7 +19,8 @@
     "noUnusedLocals": true,
     "esModuleInterop": true,
     "paths": {
-      "@bbe/types": ["libs/types/src/index.ts"]
+      "@bbe/types": ["libs/types/src/index.ts"],
+      "@bbe/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

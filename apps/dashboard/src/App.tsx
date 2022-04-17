@@ -1,4 +1,5 @@
 import { Role } from '@bbe/types';
+import { hasPermission } from '@bbe/utils';
 import { Box, createTheme, CssBaseline, PaletteMode, ThemeProvider, Toolbar } from '@mui/material';
 import { FC, useMemo } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -44,7 +45,7 @@ const App: FC = () => {
                   return <Route component={LoginPage} key={path} />;
                 }
 
-                if (role < Role.Department) {
+                if (!hasPermission(role, Role.Department)) {
                   return <Route component={ForbiddenPage} key={path} />;
                 }
 
