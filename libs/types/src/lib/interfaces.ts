@@ -40,29 +40,39 @@ export interface Payment {
   institution: string;
   iban: string;
   bic: string;
+  reduced: boolean;
 }
 
-export interface User {
-  id: string;
-  nick: string;
-  username: string;
-  discriminator: number;
-  tag: string;
-  avatar: string;
-  discord: boolean;
-  website: boolean;
-  accessToken: string;
-  refreshToken: string;
+export interface Contact {
   firstname: string;
   lastname: string;
   address1: string;
   address2: string;
   zip: number;
   city: string;
-  role: Role;
   email: string;
   phone: string;
   birthday?: Date;
+}
+
+export interface Discord {
+  nick: string;
+  username: string;
+  discriminator: number;
+  tag: string;
+  avatar: string;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface User {
+  id: string;
+  memberId: string;
+  server: boolean;
+  website: boolean;
+  discord: Discord;
+  contact: Contact;
+  role: Role;
   payment?: Payment;
 }
 

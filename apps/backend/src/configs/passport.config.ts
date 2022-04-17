@@ -29,11 +29,17 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const { id } = profile;
-        const userData = await UserUtil.buildUser({ ...profile, accessToken, refreshToken });
-        const user = await UserModel.findOneAndUpdate({ id }, userData, { new: true, upsert: true }).lean();
+        const { id, email, guilds = [] } = profile;
 
-        done(null, user);
+        let user = await UserModel.findOne({ id });
+
+        if (!user) {
+          const server = guilds.some(({ id }) => id === env.DISCORD_GUILD_ID);
+          const discord = await UserUtil.getDiscordData({ ...profile, accessToken, refreshToken });
+          user = await UserModel.create({ id, discord, contact: { email }, website: true, server });
+        }
+
+        done(null, user.toJSON());
       } catch (error) {
         done(error);
       }

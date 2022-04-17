@@ -2,7 +2,7 @@ export enum Role {
   User,
   ParticipatingMember,
   ActiveMember,
-  CommunityManagement,
+  Department,
   Board,
   Admin,
 }

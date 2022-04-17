@@ -44,7 +44,7 @@ const App: FC = () => {
                   return <Route component={LoginPage} key={path} />;
                 }
 
-                if (role < Role.CommunityManagement) {
+                if (role < Role.Department) {
                   return <Route component={ForbiddenPage} key={path} />;
                 }
 

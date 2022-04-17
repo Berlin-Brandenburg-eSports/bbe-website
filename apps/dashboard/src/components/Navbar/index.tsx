@@ -108,7 +108,7 @@ const Navbar: FC<NavbarProps> = ({ authenticated, role, setTheme, theme }) => {
           </Box>
         </Toolbar>
       </AppBar>
-      {authenticated && role >= Role.CommunityManagement && (
+      {authenticated && role >= Role.Department && (
         <>
           <Hidden smUp>
             <SwipeableDrawer

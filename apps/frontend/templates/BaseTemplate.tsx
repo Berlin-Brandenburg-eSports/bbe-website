@@ -2,7 +2,7 @@ import { Pages } from '@bbe/types';
 import classNames from 'classnames';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 
@@ -26,7 +26,7 @@ function generateSeo(seo: NextSeoProps): NextSeoProps {
   };
 }
 
-const BaseTemplate: FC<BaseTemplateProps> = ({ children, seo, hasHero }) => {
+const BaseTemplate: FC<PropsWithChildren<BaseTemplateProps>> = ({ children, seo, hasHero }) => {
   const { pathname } = useRouter();
 
   const pageData = Pages.find(({ href }) => pathname.length > 2 && href.includes(pathname));

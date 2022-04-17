@@ -17,7 +17,13 @@ const Avatar: FC<AvatarProps> = ({ id, size = 32 }) => {
   }
 
   return (
-    <Image src={`${user.avatar}?size=${size * 2}`} width={size} height={size} alt={user.nick} className={classNames('rounded-full')} />
+    <Image
+      src={`${user.discord.avatar}?size=${size * 2}`}
+      width={size}
+      height={size}
+      alt={user.discord.nick}
+      className={classNames('rounded-full')}
+    />
   );
 };
 

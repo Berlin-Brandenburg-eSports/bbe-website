@@ -5,7 +5,7 @@ import { env } from './env.config';
 export default session({
   store: MongoStore.create({ mongoUrl: env.MONGO_URI, collectionName: 'sessions' }),
   secret: env.SESSION_SECRET,
-  resave: true,
+  resave: false,
   saveUninitialized: false,
   proxy: true,
   cookie: {

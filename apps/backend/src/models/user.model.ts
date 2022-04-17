@@ -1,4 +1,4 @@
-import { Payment, Role, User } from '@bbe/types';
+import { Contact, Discord, Payment, Role, User } from '@bbe/types';
 import CryptoJS from 'crypto-js';
 import mongoose from 'mongoose';
 import validator from 'validator';
@@ -18,41 +18,55 @@ function decrypt(text: string): string {
   return decrypted.toString(CryptoJS.enc.Utf8);
 }
 
-const PaymentSchema = new mongoose.Schema<Payment>({
-  accountOwner: {
-    type: String,
-  },
-  bic: {
-    type: String,
-    required: true,
-    set: (bic: string) => bic.toUpperCase(),
-    validate: {
-      validator: validator.isBIC,
-    },
-  },
-  iban: {
-    type: String,
-    required: true,
-    validate: {
-      validator: validator.isIBAN,
-    },
-  },
-  institution: {
-    type: String,
-    required: true,
-  },
-});
-
-const UserSchema = new mongoose.Schema<User>(
+const PaymentSchema = new mongoose.Schema<Payment>(
   {
-    id: {
+    accountOwner: {
       type: String,
-      index: true,
-      unique: true,
+    },
+    bic: {
+      type: String,
+      required: true,
+      set: (bic: string) => bic.toUpperCase(),
+      validate: {
+        validator: validator.isBIC,
+        message: 'Please provide a valid BIC',
+      },
+    },
+    iban: {
+      type: String,
       required: true,
       validate: {
-        validator: validator.isNumeric,
+        validator: validator.isIBAN,
+        message: 'Please provide a valid IBAN',
       },
+    },
+    institution: {
+      type: String,
+      required: true,
+    },
+    reduced: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  { _id: false }
+);
+
+const DiscordSchema = new mongoose.Schema<Discord>(
+  {
+    accessToken: {
+      type: String,
+      select: false,
+      get: decrypt,
+      set: encrypt,
+      default: '',
+    },
+    refreshToken: {
+      type: String,
+      select: false,
+      get: decrypt,
+      set: encrypt,
+      default: '',
     },
     nick: {
       type: String,
@@ -66,7 +80,8 @@ const UserSchema = new mongoose.Schema<User>(
       type: Number,
       required: true,
       validate: {
-        validator: (input: number) => validator.isLength(input.toString(), { min: 4, max: 4 }),
+        validator: (input: number) => validator.isLength(input.toString(), { min: 4, max: 4 }) && validator.isNumeric(input.toString()),
+        message: 'discriminator must be numeric with a length of 4 digits',
       },
     },
     tag: {
@@ -83,28 +98,12 @@ const UserSchema = new mongoose.Schema<User>(
       type: String,
       required: true,
     },
-    discord: {
-      type: Boolean,
-      default: false,
-    },
-    website: {
-      type: Boolean,
-      default: false,
-    },
-    accessToken: {
-      type: String,
-      select: false,
-      get: decrypt,
-      set: encrypt,
-      default: '',
-    },
-    refreshToken: {
-      type: String,
-      select: false,
-      get: decrypt,
-      set: encrypt,
-      default: '',
-    },
+  },
+  { _id: false }
+);
+
+const ContactSchema = new mongoose.Schema<Contact>(
+  {
     address1: {
       type: String,
       default: '',
@@ -129,11 +128,6 @@ const UserSchema = new mongoose.Schema<User>(
       type: Number,
       default: -1,
     },
-    role: {
-      type: Number,
-      enum: Role,
-      default: Role.User,
-    },
     birthday: {
       type: Date,
     },
@@ -144,14 +138,60 @@ const UserSchema = new mongoose.Schema<User>(
         validator: validator.isEmail,
       },
     },
-    payment: {
-      type: PaymentSchema,
-    },
     phone: {
       type: String,
       validate: {
         validator: (phone: string) => validator.isMobilePhone(phone, 'de-DE'),
       },
+    },
+  },
+  { _id: false }
+);
+
+const UserSchema = new mongoose.Schema<User>(
+  {
+    id: {
+      type: String,
+      index: true,
+      unique: true,
+      required: true,
+      validate: {
+        validator: validator.isNumeric,
+        message: 'id must be numeric',
+      },
+    },
+    memberId: {
+      type: String,
+      unique: true,
+      sparse: true,
+      validate: {
+        validator: validator.isNumeric,
+        message: 'memberId must be numeric',
+      },
+    },
+    website: {
+      type: Boolean,
+      default: false,
+    },
+    server: {
+      type: Boolean,
+      default: false,
+    },
+    discord: {
+      type: DiscordSchema,
+      required: true,
+    },
+    role: {
+      type: Number,
+      enum: Role,
+      default: Role.User,
+    },
+    payment: {
+      type: PaymentSchema,
+    },
+    contact: {
+      type: ContactSchema,
+      required: true,
     },
   },
   { timestamps: true, toJSON: { getters: true } }

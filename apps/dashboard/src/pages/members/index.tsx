@@ -37,8 +37,8 @@ const MembersPage: FC = () => {
                 </TableCell>
                 <TableCell>
                   <Box display="flex" alignItems="center">
-                    <Avatar src={user.avatar} sx={(theme) => ({ marginRight: theme.spacing(1) })} />
-                    {user.tag}
+                    <Avatar src={user.discord.avatar} sx={(theme) => ({ marginRight: theme.spacing(1) })} />
+                    {user.discord.tag}
                   </Box>
                 </TableCell>
               </TableRow>

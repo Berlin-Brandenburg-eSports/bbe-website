@@ -23,32 +23,32 @@ export default class UserUtil {
     return user;
   }
 
-  public static async buildUser(params: Profile & { accessToken: string; refreshToken: string }): Promise<Partial<User>> {
-    const { id, guilds = [] } = params;
+  public static async getDiscordData(params: Profile & { accessToken: string; refreshToken: string }): Promise<User['discord']> {
+    const { id, guilds = [], accessToken, refreshToken, username } = params;
     const discord = guilds.some(({ id }) => id === env.DISCORD_GUILD_ID);
     const discriminator = Number(params.discriminator);
     const avatar = params.avatar === null ? '' : params.avatar;
 
     const tag = `${params.username}#${params.discriminator}`;
     const avatarUrl = DiscordUtil.getUserAvatar(params.id, avatar);
-    const user: Partial<User> = { ...params, avatar: avatarUrl, tag, nick: params.username, discriminator, discord, website: true };
+    const data: User['discord'] = { accessToken, avatar: avatarUrl, discriminator, nick: username, refreshToken, tag, username };
 
     if (discord) {
       try {
         const guildUser = await DiscordUtil.getGuildMe(params.accessToken);
 
         if (guildUser.avatar) {
-          user.avatar = DiscordUtil.getGuildAvatar(id, discriminator, guildUser.avatar);
+          data.avatar = DiscordUtil.getGuildAvatar(id, discriminator, guildUser.avatar);
         }
 
         if (guildUser.nick) {
-          user.nick = guildUser.nick;
+          data.nick = guildUser.nick;
         }
       } catch {
-        this.logger.warn(`Could not get guild information for user ${tag} (${user.id})`);
+        this.logger.warn(`Could not get guild information for user ${tag} (${params.id})`);
       }
     }
 
-    return user;
+    return data;
   }
 }
