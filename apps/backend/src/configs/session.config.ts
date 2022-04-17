@@ -9,7 +9,7 @@ export default session({
   saveUninitialized: false,
   proxy: true,
   cookie: {
-    maxAge: 1000 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
     domain: env.COOKIE_DOMAIN,
     secure: env.NODE_ENV === 'production',
   },
