@@ -29,7 +29,7 @@ const Sidebar: FC<SidebarProps> = ({ open, onClick }) => {
         { '-translate-x-full': !open }
       )}
     >
-      {navbarLinks.map(({ href, title, icon, className }) => (
+      {navbarLinks.map(({ href, label, icon, className }) => (
         <li key={`navbar-${href}`}>
           <Link href={href}>
             <a
@@ -46,7 +46,7 @@ const Sidebar: FC<SidebarProps> = ({ open, onClick }) => {
               )}
             >
               <span className={classNames('mr-2')}>{icon}</span>
-              {title}
+              {label}
             </a>
           </Link>
         </li>

@@ -1,21 +1,32 @@
 import { Auth } from '@bbe/types';
-import createHttpError from 'http-errors';
+import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
-import useSWR, { SWRResponse } from 'swr';
-import { fetcher } from '../utils/fetch.util';
-
-export const useAuth = (): SWRResponse<Auth> => {
-  return useSWR<Auth>('/auth', fetcher);
-};
 
 export default class AuthService {
   public static getCookies(context: GetServerSidePropsContext): string {
-    const cookies = context.req.headers.cookie;
+    return context.req.headers.cookie || '';
+  }
 
-    if (!cookies) {
-      throw createHttpError(401);
+  public static async shouldRedirect(context: GetServerSidePropsContext): Promise<boolean> {
+    try {
+      const cookies = this.getCookies(context);
+      const { authenticated } = await this.getAuth(cookies);
+
+      return !authenticated;
+    } catch {
+      return true;
     }
+  }
 
-    return cookies;
+  public static async logout(): Promise<{ message: string }> {
+    const { data } = await axios.get<{ message: string }>('/auth/logout');
+
+    return data;
+  }
+
+  public static async getAuth(Cookie: string): Promise<Auth> {
+    const { data } = await axios.get<Auth>('/auth', { headers: { Cookie } });
+
+    return data;
   }
 }

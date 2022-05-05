@@ -3,9 +3,10 @@ import Image from 'next/image';
 import Router from 'next/router';
 import { FC, useState } from 'react';
 import { FaBars, FaTimes, FaUserCircle } from 'react-icons/fa';
-import { useAuth } from '../../services/auth.service';
-import UserService from '../../services/user.service';
+import AuthService from '../../services/auth.service';
+import { useAuth } from '../../services/swr.service';
 import Avatar from '../Avatar';
+import Background from '../Background';
 import Link from '../Link';
 import { navbarLinks } from './navbarLinks';
 import Sidebar from './Sidebar';
@@ -16,13 +17,13 @@ interface UserMenuProps {
 
 const UserMenu: FC<UserMenuProps> = ({ onClick }) => {
   const handleLogout = async (): Promise<void> => {
-    await UserService.logout();
+    await AuthService.logout();
     onClick();
     Router.push('/');
   };
 
   return (
-    <div className={classNames('absolute', 'top-full', '-right-2', 'pt-4')}>
+    <div className={classNames('pt-4')}>
       <ul className={classNames('bg-black', 'bg-opacity-75', 'rounded-b')}>
         <li>
           <button className={classNames('px-4', 'py-2', 'text-primary')} onClick={handleLogout}>
@@ -38,7 +39,6 @@ const Navbar: FC = () => {
   const { data: auth, mutate } = useAuth();
   const authenticated = !!auth?.authenticated;
   const [open, setOpen] = useState<boolean>(false);
-  const [userOpen, setUserOpen] = useState<boolean>(false);
   const hrefStyles = classNames('hover:text-primary', 'transition-colors', 'ease-in-out');
 
   const toggleOpen =
@@ -53,14 +53,9 @@ const Navbar: FC = () => {
       }
     };
 
-  const handleHover = (state?: boolean): (() => void) => {
-    return () => {
-      setUserOpen(state || !userOpen);
-    };
-  };
-
   return (
     <>
+      <Background onClick={toggleOpen(false)} visible={open} />
       <nav
         className={classNames(
           'fixed',
@@ -75,7 +70,7 @@ const Navbar: FC = () => {
         )}
       >
         <div className={classNames('md:container', 'px-4', 'py-4', 'flex', 'items-center', 'justify-between', 'font-bold', 'italic')}>
-          <button onClick={toggleOpen(!open)}>
+          <button onClick={toggleOpen(!open)} className={classNames('w-8')}>
             {open ? (
               <FaTimes className={classNames('flex', 'md:hidden')} size={20} />
             ) : (
@@ -90,41 +85,27 @@ const Navbar: FC = () => {
           <ul className={classNames('hidden', 'md:flex', 'flex-grow', 'mx-2')}>
             {navbarLinks
               .filter(({ desktop }) => desktop)
-              .map(({ href, title }) => (
+              .map(({ href, label }) => (
                 <li key={`navbar-${href}`} className={classNames('px-2', hrefStyles)}>
                   <Link href={href}>
-                    <a onClick={toggleOpen(false)}>{title}</a>
+                    <a onClick={toggleOpen(false)}>{label}</a>
                   </Link>
                 </li>
               ))}
           </ul>
-          <div
-            className={classNames('flex', 'items-center', 'relative')}
-            onMouseEnter={handleHover(true)}
-            onMouseLeave={handleHover(false)}
-          >
+          <div className={classNames('flex', 'group', 'items-center', 'relative')}>
             <Link href="/konto">
-              <a onClick={toggleOpen(false)} className={classNames(hrefStyles, 'ml-4', 'w-8', 'h-8')}>
+              <a onClick={toggleOpen(false)} className={classNames(hrefStyles, 'w-8', 'h-8')}>
                 {authenticated ? <Avatar /> : <FaUserCircle size={32} />}
               </a>
             </Link>
-
-            {userOpen && authenticated && <UserMenu onClick={mutate} />}
+            <div className={classNames('group-hover:block', 'absolute', 'hidden', 'top-full', 'right-0')}>
+              {authenticated && <UserMenu onClick={mutate} />}
+            </div>
           </div>
         </div>
         <Sidebar open={open} onClick={toggleOpen(false)} />
       </nav>
-      <button
-        className={classNames(
-          'fixed',
-          'transition',
-          'inset-0',
-          'bg-black',
-          'z-10',
-          open ? classNames('visible', 'bg-opacity-75') : classNames('invisible', 'bg-opacity-0')
-        )}
-        onClick={toggleOpen(false)}
-      />
     </>
   );
 };

@@ -1,5 +1,6 @@
+import { Page } from './enums';
 import { BackendEnvironment, DashboardEnvironment, FrontendEnvironment } from './interfaces';
 
-export type Href = '/' | '/beitragsordnung' | '/impressum' | '/kontakt' | '/satzung' | '/spiele' | '/teams' | '/news' | '/konto';
+export type Href = `${Page}`;
 export type NodeEnv = 'development' | 'production' | 'test';
 export type Environment = BackendEnvironment | FrontendEnvironment | DashboardEnvironment;

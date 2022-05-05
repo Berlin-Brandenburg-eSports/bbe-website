@@ -2,6 +2,7 @@ import { Auth, Role } from '@bbe/types';
 import { hasPermission } from '@bbe/utils';
 import {
   AppBar,
+  Avatar,
   Box,
   Button,
   Checkbox,
@@ -23,6 +24,7 @@ import { IconContext } from 'react-icons/lib';
 import { MdDarkMode, MdLightMode, MdMenu } from 'react-icons/md';
 import { NavLink, useLocation } from 'react-router-dom';
 import { routes } from '../../configs/routes.config';
+import { useUser } from '../../services/user.service';
 
 interface NavbarProps extends Auth {
   theme: PaletteMode;
@@ -51,6 +53,7 @@ const NavbarLinks: FC = () => {
 
 const Navbar: FC<NavbarProps> = ({ authenticated, role, setTheme, theme }) => {
   const { pathname } = useLocation();
+  const { data: user } = useUser();
   const [open, setOpen] = useState<boolean>(false);
   const drawerWidth = 240;
   const defaultTitle = 'BBE Dashboard';
@@ -103,9 +106,14 @@ const Navbar: FC<NavbarProps> = ({ authenticated, role, setTheme, theme }) => {
               onClick={toggleTheme}
               checked={theme === 'dark'}
             />
-            <Button onClick={handleLogout} color="inherit" variant="outlined" sx={(theme) => ({ marginLeft: theme.spacing(1) })}>
-              Logout
-            </Button>
+            {authenticated && (
+              <>
+                <Button onClick={handleLogout} color="inherit" variant="outlined" sx={(theme) => ({ marginLeft: theme.spacing(1) })}>
+                  Logout
+                </Button>
+                <Avatar src={user?.discord.avatar} sx={(theme) => ({ marginLeft: theme.spacing(1) })} />
+              </>
+            )}
           </Box>
         </Toolbar>
       </AppBar>

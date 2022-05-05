@@ -1,11 +1,5 @@
 import { Role } from './enums';
-import { Href, NodeEnv } from './types';
-
-export interface Route {
-  href: Href;
-  title: string;
-  description?: string;
-}
+import { NodeEnv } from './types';
 
 export interface BackendEnvironment {
   NODE_ENV: NodeEnv;
