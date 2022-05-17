@@ -1,8 +1,10 @@
 import { ComponentType, ReactNode } from 'react';
-import { MdHome, MdPerson, MdSupervisedUserCircle } from 'react-icons/md';
+import { MdGamepad, MdHome, MdPerson, MdSportsEsports, MdSupervisedUserCircle } from 'react-icons/md';
 import DepartmentsPage from '../pages/departments';
+import GamesPage from '../pages/games';
 import HomePage from '../pages/home';
 import MembersPage from '../pages/members';
+import TeamsPage from '../pages/teams';
 
 interface DashboardRoute {
   path: `/${string}`;
@@ -28,5 +30,17 @@ export const routes: DashboardRoute[] = [
     label: 'Abteilungen',
     icon: <MdSupervisedUserCircle />,
     component: DepartmentsPage,
+  },
+  {
+    path: '/teams',
+    label: 'Teams',
+    icon: <MdGamepad />,
+    component: TeamsPage,
+  },
+  {
+    path: '/games',
+    label: 'Spiele',
+    icon: <MdSportsEsports />,
+    component: GamesPage,
   },
 ];

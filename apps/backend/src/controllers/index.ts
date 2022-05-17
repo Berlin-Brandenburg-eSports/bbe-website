@@ -3,12 +3,21 @@ import { Router } from 'express';
 import AuthController from './auth.controller';
 import Controller from './base.controller';
 import DepartmentController from './department.controller';
+import GameController from './game.controller';
+import NewsController from './news.controller';
 import TeamController from './team.controller';
 import UserController from './user.controller';
 
 const router = Router();
 
-const controllers: Controller[] = [new UserController(), new AuthController(), new DepartmentController(), new TeamController()];
+const controllers: Controller[] = [
+  new AuthController(),
+  new DepartmentController(),
+  new NewsController(),
+  new TeamController(),
+  new UserController(),
+  new GameController(),
+];
 
 controllers.forEach((controller) => {
   controller.setupRouter();

@@ -1,4 +1,7 @@
+import { Role } from '@bbe/types';
+import { hasPermission } from '@bbe/utils';
 import { RequestHandler } from 'express';
+import createHttpError from 'http-errors';
 
 export const setRedirect: RequestHandler = (req, _res, next) => {
   const { ref = '' } = req.query;
@@ -11,3 +14,21 @@ export const setRedirect: RequestHandler = (req, _res, next) => {
 
   next();
 };
+
+export const isAuthenticated =
+  (role?: Role): RequestHandler =>
+  (req, _res, next) => {
+    try {
+      if (!req.user) {
+        throw createHttpError(401);
+      }
+
+      if (role && !hasPermission(req.user.role, role)) {
+        throw createHttpError(403);
+      }
+
+      return req.user;
+    } catch (error) {
+      next(error);
+    }
+  };

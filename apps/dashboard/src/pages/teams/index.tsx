@@ -1,13 +1,13 @@
-import { useDepartments } from '@bbe/utils';
+import { useTeams } from '@bbe/utils';
 import { FC } from 'react';
 
 const TeamsPage: FC = () => {
-  const { data: departments = [] } = useDepartments();
+  const { data: teams = [] } = useTeams();
 
   return (
     <div>
-      <h1>Departments</h1>
-      {departments.map(({ name }) => (
+      <h1>Teams</h1>
+      {teams.map(({ name }) => (
         <p>{name}</p>
       ))}
     </div>

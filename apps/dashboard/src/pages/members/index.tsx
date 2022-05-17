@@ -1,5 +1,5 @@
 import { useUsers } from '@bbe/utils';
-import { Avatar, Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material';
+import { Avatar, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material';
 import { Box } from '@mui/system';
 import { ChangeEvent, FC, useState } from 'react';
 
@@ -23,18 +23,14 @@ const MembersPage: FC = () => {
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell>
-                <Checkbox />
-              </TableCell>
-              <TableCell>User</TableCell>
+              <TableCell>Id</TableCell>
+              <TableCell width="100%">User</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>
-                  <Checkbox />
-                </TableCell>
+              <TableRow key={user.id} hover>
+                <TableCell>{user.memberId}</TableCell>
                 <TableCell>
                   <Box display="flex" alignItems="center">
                     <Avatar src={user.discord.avatar} sx={(theme) => ({ marginRight: theme.spacing(1) })} />

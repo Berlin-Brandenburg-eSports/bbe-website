@@ -24,6 +24,7 @@
         "arrow-parens": "error",
         "curly": ["error", "all"],
         "no-useless-return": "error",
+        "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 4 }],
         "padding-line-between-statements": [
           "error",
           {

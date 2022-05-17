@@ -84,3 +84,14 @@ export interface Game {
   slug: string;
   teams: Array<Team['slug']>;
 }
+
+export interface News {
+  title: string;
+  content: string;
+  slug: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt?: Date;
+  author: User['id'];
+  editor: User['id'];
+}

@@ -1,4 +1,5 @@
 import { Department } from '@bbe/types';
+import { DeleteResult } from 'mongodb';
 import { DepartmentModel } from '../models/department.model';
 
 export default class DepartmentUtil {
@@ -10,5 +11,9 @@ export default class DepartmentUtil {
     const department = await DepartmentModel.create(data);
 
     return department.toJSON();
+  }
+
+  public static async deleteDepartment(slug: Department['slug']): Promise<DeleteResult> {
+    return DepartmentModel.deleteOne({ slug });
   }
 }

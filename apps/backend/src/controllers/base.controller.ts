@@ -24,6 +24,14 @@ export default abstract class Controller {
     return req.user;
   }
 
+  protected checkOwner(req: Request, id: User['id']): void {
+    const { role, id: userId } = this.getUser(req);
+
+    if (id !== userId && !hasPermission(role, Role.Admin)) {
+      throw createHttpError(403, { userId, role });
+    }
+  }
+
   protected notAllowed: RequestHandler = async (_req, _res, next) => {
     try {
       throw createHttpError(405);

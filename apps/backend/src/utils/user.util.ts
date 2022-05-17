@@ -1,5 +1,6 @@
 import { env, User } from '@bbe/types';
 import createHttpError from 'http-errors';
+import { DeleteResult } from 'mongodb';
 import { Profile } from 'passport-discord';
 import { UserModel } from '../models/user.model';
 import DiscordUtil from './discord.util';
@@ -49,5 +50,19 @@ export default class UserUtil {
     }
 
     return data;
+  }
+
+  public static async updateUser(id: User['id'], data: Partial<User>): Promise<User> {
+    const user = await UserModel.findOneAndUpdate({ id }, data, { new: true }).lean();
+
+    if (!user) {
+      throw createHttpError(404, 'User not found', { id });
+    }
+
+    return user;
+  }
+
+  public static async deleteUser(id: User['id']): Promise<DeleteResult> {
+    return UserModel.deleteOne({ id });
   }
 }
