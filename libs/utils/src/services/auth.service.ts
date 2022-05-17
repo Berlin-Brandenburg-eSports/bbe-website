@@ -1,8 +1,14 @@
 import { Auth } from '@bbe/types';
 import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
+import useSWR, { SWRResponse } from 'swr';
+import { fetcher } from '../configs/axios.config';
 
-export default class AuthService {
+export const useAuth = (): SWRResponse<Auth> => {
+  return useSWR<Auth>('/auth', fetcher);
+};
+
+export class AuthService {
   public static getCookies(context: GetServerSidePropsContext): string {
     return context.req.headers.cookie || '';
   }

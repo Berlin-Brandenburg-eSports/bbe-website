@@ -1,6 +1,6 @@
+import { env } from '@bbe/types';
 import axios from 'axios';
 import { RESTGetAPIGuildMemberResult, RESTGetAPIGuildRolesResult, RESTGetCurrentUserGuildMemberResult } from 'discord-api-types/v9';
-import { env } from '../configs/env.config';
 
 export default class DiscordUtil {
   private static readonly DISCORD_API = 'https://discord.com/api/v9';

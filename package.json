@@ -4,7 +4,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "nx build",
+    "build": "nx run-many --target=build --all=true",
     "dev": "nx run-many --target=serve --all=true",
     "dev:back": "nx serve backend",
     "dev:dash": "nx serve dashboard",

@@ -1,7 +1,7 @@
 import { useDepartments } from '@bbe/utils';
 import { FC } from 'react';
 
-const DepartmentsPage: FC = () => {
+const TeamsPage: FC = () => {
   const { data: departments = [] } = useDepartments();
 
   return (
@@ -14,4 +14,4 @@ const DepartmentsPage: FC = () => {
   );
 };
 
-export default DepartmentsPage;
+export default TeamsPage;

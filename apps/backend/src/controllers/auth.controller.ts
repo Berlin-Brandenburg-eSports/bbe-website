@@ -1,6 +1,6 @@
+import { env } from '@bbe/types';
 import { RequestHandler } from 'express';
 import passport from 'passport';
-import { env } from '../configs/env.config';
 import { setRedirect } from '../middlewares/auth.middleware';
 import Controller from './base.controller';
 

@@ -1,7 +1,7 @@
 import { Role } from './enums';
 import { NodeEnv } from './types';
 
-export interface BackendEnvironment {
+export interface Environment {
   NODE_ENV: NodeEnv;
   PORT: number;
   FRONTEND_URL: string;
@@ -16,17 +16,6 @@ export interface BackendEnvironment {
   DISCORD_GUILD_ID: string;
   DISCORD_TOKEN: string;
   CRYPTO_SECRET: string;
-}
-
-export interface FrontendEnvironment {
-  NODE_ENV: NodeEnv;
-  API_URL: string;
-  CONNECTION_COOKIE: string;
-}
-
-export interface DashboardEnvironment {
-  NODE_ENV: NodeEnv;
-  API_URL: string;
 }
 
 export interface Payment {

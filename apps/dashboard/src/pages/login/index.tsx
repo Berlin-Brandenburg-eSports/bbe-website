@@ -1,8 +1,8 @@
+import { env } from '@bbe/types';
 import { Box, Button } from '@mui/material';
 import { FC } from 'react';
 import { FaDiscord } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
-import { env } from '../../configs/env.config';
 
 const LoginPage: FC = () => {
   const { pathname } = useLocation();

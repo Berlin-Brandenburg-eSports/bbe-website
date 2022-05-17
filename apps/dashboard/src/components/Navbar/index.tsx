@@ -1,5 +1,5 @@
 import { Auth, Role } from '@bbe/types';
-import { hasPermission } from '@bbe/utils';
+import { hasPermission, useUser } from '@bbe/utils';
 import {
   AppBar,
   Avatar,
@@ -24,7 +24,6 @@ import { IconContext } from 'react-icons/lib';
 import { MdDarkMode, MdLightMode, MdMenu } from 'react-icons/md';
 import { NavLink, useLocation } from 'react-router-dom';
 import { routes } from '../../configs/routes.config';
-import { useUser } from '../../services/user.service';
 
 interface NavbarProps extends Auth {
   theme: PaletteMode;

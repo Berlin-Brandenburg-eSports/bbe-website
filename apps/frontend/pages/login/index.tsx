@@ -1,9 +1,9 @@
+import { env } from '@bbe/types';
+import { AuthService } from '@bbe/utils';
 import classNames from 'classnames';
 import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import Button from '../../components/Button';
-import { env } from '../../configs/env.config';
-import AuthService from '../../services/auth.service';
 import BaseTemplate from '../../templates/BaseTemplate';
 
 const LoginPage: NextPage = () => {

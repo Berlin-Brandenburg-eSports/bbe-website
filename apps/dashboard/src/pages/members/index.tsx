@@ -1,7 +1,7 @@
+import { useUsers } from '@bbe/utils';
 import { Avatar, Checkbox, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material';
 import { Box } from '@mui/system';
 import { ChangeEvent, FC, useState } from 'react';
-import { useUsers } from '../../services/user.service';
 
 const MembersPage: FC = () => {
   const { data: users = [] } = useUsers();

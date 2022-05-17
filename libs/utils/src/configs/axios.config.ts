@@ -1,5 +1,5 @@
+import { env } from '@bbe/types';
 import axios from 'axios';
-import { env } from '../configs/env.config';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = `${env.API_URL}/v1`;

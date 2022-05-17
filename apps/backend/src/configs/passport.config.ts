@@ -1,10 +1,9 @@
-import { User } from '@bbe/types';
+import { env, User } from '@bbe/types';
 import createHttpError from 'http-errors';
 import passport from 'passport';
 import { Strategy } from 'passport-discord';
 import { UserModel } from '../models/user.model';
 import UserUtil from '../utils/user.util';
-import { env } from './env.config';
 
 passport.serializeUser((user: User, done) => done(null, user.id));
 

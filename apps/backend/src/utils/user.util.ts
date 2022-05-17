@@ -1,7 +1,6 @@
-import { User } from '@bbe/types';
+import { env, User } from '@bbe/types';
 import createHttpError from 'http-errors';
 import { Profile } from 'passport-discord';
-import { env } from '../configs/env.config';
 import { UserModel } from '../models/user.model';
 import DiscordUtil from './discord.util';
 import Logger from './logger.util';

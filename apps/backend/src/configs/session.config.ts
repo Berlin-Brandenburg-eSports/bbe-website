@@ -1,6 +1,6 @@
+import { env } from '@bbe/types';
 import MongoStore from 'connect-mongo';
 import session from 'express-session';
-import { env } from './env.config';
 
 export default session({
   store: MongoStore.create({ mongoUrl: env.MONGO_URI, collectionName: 'sessions' }),

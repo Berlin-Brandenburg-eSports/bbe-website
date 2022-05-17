@@ -1,15 +1,13 @@
-import { Role } from '@bbe/types';
-import { hasPermission } from '@bbe/utils';
+import { env, Role } from '@bbe/types';
+import { hasPermission, useAuth } from '@bbe/utils';
 import { Box, createTheme, CssBaseline, PaletteMode, ThemeProvider, Toolbar } from '@mui/material';
 import { FC, useMemo } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import { env } from './configs/env.config';
 import { routes } from './configs/routes.config';
 import ForbiddenPage from './pages/403';
 import NotFound from './pages/404';
 import LoginPage from './pages/login';
-import { useAuth } from './services/auth.service';
 import useLocalStorage from './utils/localstorage.util';
 
 const App: FC = () => {

@@ -1,5 +1,5 @@
+import { env } from '@bbe/types';
 import { CorsOptions } from 'cors';
-import { env } from './env.config';
 
 const corsOptions: CorsOptions = {
   origin: [env.API_URL, env.FRONTEND_URL, env.DASHBOARD_URL],

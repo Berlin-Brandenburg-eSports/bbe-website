@@ -1,4 +1,4 @@
-import { User } from '@bbe/types';
+import { env, User } from '@bbe/types';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
@@ -6,7 +6,6 @@ import { Session } from 'express-session';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import corsOptions from './configs/cors.config';
-import { env } from './configs/env.config';
 import { passport } from './configs/passport.config';
 import sessionConfig from './configs/session.config';
 import router from './controllers';

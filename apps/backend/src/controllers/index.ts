@@ -1,5 +1,5 @@
+import { env } from '@bbe/types';
 import { Router } from 'express';
-import { env } from '../configs/env.config';
 import AuthController from './auth.controller';
 import Controller from './base.controller';
 import DepartmentController from './department.controller';

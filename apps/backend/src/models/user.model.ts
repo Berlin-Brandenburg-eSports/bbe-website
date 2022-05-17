@@ -1,8 +1,7 @@
-import { Contact, Discord, Payment, Role, User } from '@bbe/types';
+import { Contact, Discord, env, Payment, Role, User } from '@bbe/types';
 import CryptoJS from 'crypto-js';
 import mongoose from 'mongoose';
 import validator from 'validator';
-import { env } from '../configs/env.config';
 
 function encrypt(text: string): string {
   return CryptoJS.AES.encrypt(text, env.CRYPTO_SECRET).toString();

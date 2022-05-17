@@ -1,10 +1,9 @@
+import { AuthService, useAuth } from '@bbe/utils';
 import classNames from 'classnames';
 import Image from 'next/image';
 import Router from 'next/router';
 import { FC, useState } from 'react';
 import { FaBars, FaTimes, FaUserCircle } from 'react-icons/fa';
-import AuthService from '../../services/auth.service';
-import { useAuth } from '../../services/swr.service';
 import Avatar from '../Avatar';
 import Background from '../Background';
 import Link from '../Link';

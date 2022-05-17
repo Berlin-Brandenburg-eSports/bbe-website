@@ -1,10 +1,9 @@
 import { User } from '@bbe/types';
+import { AuthService, UserService } from '@bbe/utils';
 import classNames from 'classnames';
 import { GetServerSideProps, NextPage } from 'next';
 import Router from 'next/router';
 import Button from '../../components/Button';
-import AuthService from '../../services/auth.service';
-import UserService from '../../services/user.service';
 import BaseTemplate from '../../templates/BaseTemplate';
 
 interface AccountPagePros {
