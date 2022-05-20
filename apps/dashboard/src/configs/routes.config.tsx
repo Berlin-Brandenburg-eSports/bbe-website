@@ -3,8 +3,8 @@ import { MdGamepad, MdHome, MdPerson, MdSportsEsports, MdSupervisedUserCircle } 
 import DepartmentsPage from '../pages/departments';
 import GamesPage from '../pages/games';
 import HomePage from '../pages/home';
-import MembersPage from '../pages/members';
 import TeamsPage from '../pages/teams';
+import UsersPage from '../pages/users';
 
 interface DashboardRoute {
   path: `/${string}`;
@@ -20,10 +20,10 @@ export const routes: DashboardRoute[] = [
     component: HomePage,
   },
   {
-    path: '/members',
+    path: '/users',
     label: 'Mitglieder',
     icon: <MdPerson />,
-    component: MembersPage,
+    component: UsersPage,
   },
   {
     path: '/departments',

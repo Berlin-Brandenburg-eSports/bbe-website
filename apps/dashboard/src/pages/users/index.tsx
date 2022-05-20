@@ -1,9 +1,56 @@
+import { User } from '@bbe/types';
 import { useUsers } from '@bbe/utils';
-import { Avatar, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material';
+import {
+  Avatar,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+} from '@mui/material';
 import { Box } from '@mui/system';
 import { ChangeEvent, FC, useState } from 'react';
 
-const MembersPage: FC = () => {
+interface UserRowProps {
+  user: User;
+}
+
+const UserRow: FC<UserRowProps> = ({ user }) => {
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleOpen = (): void => {
+    setOpen(true);
+  };
+
+  const handleClose = (): void => {
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>{user.id}</DialogTitle>
+        <DialogContent dividers>{JSON.stringify(user)}</DialogContent>
+      </Dialog>
+      <TableRow key={user.id} hover onClick={handleOpen} sx={{ cursor: 'pointer' }}>
+        <TableCell>{user.memberId}</TableCell>
+        <TableCell>
+          <Box display="flex" alignItems="center">
+            <Avatar src={user.discord.avatar} sx={(theme) => ({ marginRight: theme.spacing(1) })} />
+            {user.discord.tag}
+          </Box>
+        </TableCell>
+      </TableRow>
+    </>
+  );
+};
+
+const UsersPage: FC = () => {
   const { data: users = [] } = useUsers();
   const [rowsPerPage, setRowsPerPage] = useState<number>(20);
   const [page, setPage] = useState<number>(0);
@@ -29,15 +76,7 @@ const MembersPage: FC = () => {
           </TableHead>
           <TableBody>
             {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => (
-              <TableRow key={user.id} hover>
-                <TableCell>{user.memberId}</TableCell>
-                <TableCell>
-                  <Box display="flex" alignItems="center">
-                    <Avatar src={user.discord.avatar} sx={(theme) => ({ marginRight: theme.spacing(1) })} />
-                    {user.discord.tag}
-                  </Box>
-                </TableCell>
-              </TableRow>
+              <UserRow key={user.id} user={user} />
             ))}
           </TableBody>
         </Table>
@@ -55,4 +94,4 @@ const MembersPage: FC = () => {
   );
 };
 
-export default MembersPage;
+export default UsersPage;
