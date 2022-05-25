@@ -38,4 +38,4 @@ DepartmentSchema.pre('save', function (next) {
   next();
 });
 
-export const DepartmentModel = mongoose.model('departments', DepartmentSchema);
+export const DepartmentModel = mongoose.model('department', DepartmentSchema);

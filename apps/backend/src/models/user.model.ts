@@ -1,6 +1,7 @@
 import { Contact, Discord, env, Payment, Role, User } from '@bbe/types';
 import CryptoJS from 'crypto-js';
 import mongoose from 'mongoose';
+import autopopulate from 'mongoose-autopopulate';
 import validator from 'validator';
 
 function encrypt(text: string): string {
@@ -199,8 +200,15 @@ const UserSchema = new mongoose.Schema<User>(
       type: [String],
       default: [],
     },
+    image: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'image',
+      autopopulate: true,
+    },
   },
   { timestamps: true, toJSON: { getters: true } }
 );
 
-export const UserModel = mongoose.model('users', UserSchema);
+UserSchema.plugin(autopopulate);
+
+export const UserModel = mongoose.model('user', UserSchema);

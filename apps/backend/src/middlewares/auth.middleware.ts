@@ -27,7 +27,7 @@ export const isAuthenticated =
         throw createHttpError(403);
       }
 
-      return req.user;
+      next();
     } catch (error) {
       next(error);
     }

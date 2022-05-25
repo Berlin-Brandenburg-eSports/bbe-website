@@ -1,8 +1,8 @@
-import { env } from '@bbe/types';
 import { Router } from 'express';
 import AuthController from './auth.controller';
 import Controller from './base.controller';
 import DepartmentController from './department.controller';
+import FileController from './file.controller';
 import GameController from './game.controller';
 import NewsController from './news.controller';
 import TeamController from './team.controller';
@@ -17,19 +17,12 @@ const controllers: Controller[] = [
   new TeamController(),
   new UserController(),
   new GameController(),
+  new FileController(),
 ];
 
 controllers.forEach((controller) => {
   controller.setupRouter();
   router.use(controller.router);
-});
-
-router.get('/', (req, res, next) => {
-  try {
-    res.send({ name: 'Berlin-Brandenburg eSports e.V.', env: env.NODE_ENV, version: req.baseUrl });
-  } catch (error) {
-    next(error);
-  }
 });
 
 export default router;

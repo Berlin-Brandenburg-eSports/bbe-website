@@ -10,11 +10,11 @@ export default class UserUtil {
   private static readonly logger = new Logger('UserUtil', 'cyan');
 
   public static async getUsers(): Promise<User[]> {
-    return UserModel.find().lean();
+    return UserModel.find().lean({ autopopulate: true });
   }
 
-  public static async getUserById(id: string): Promise<User> {
-    const user = await UserModel.findOne({ id }).lean();
+  public static async getUserById(id: User['id']): Promise<User> {
+    const user = await UserModel.findOne({ id }).lean({ autopopulate: true });
 
     if (!user) {
       throw createHttpError(404, 'User not found', { id });
@@ -53,13 +53,13 @@ export default class UserUtil {
   }
 
   public static async updateUser(id: User['id'], data: Partial<User>): Promise<User> {
-    const user = await UserModel.findOneAndUpdate({ id }, data, { new: true }).lean();
+    const user = await UserModel.findOneAndUpdate({ id }, data, { new: true }).lean({ autopopulate: true });
 
     if (!user) {
       throw createHttpError(404, 'User not found', { id });
     }
 
-    return user;
+    return user as any as User;
   }
 
   public static async deleteUser(id: User['id']): Promise<DeleteResult> {
