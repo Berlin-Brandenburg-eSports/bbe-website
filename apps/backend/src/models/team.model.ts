@@ -1,9 +1,10 @@
 import { Team } from '@bbe/types';
 import mongoose from 'mongoose';
+import autopopulate from 'mongoose-autopopulate';
 import slugify from 'slugify';
 import validator from 'validator';
 
-const TeamSchema = new mongoose.Schema<Team>({
+const TeamSchema = new mongoose.Schema<Omit<Team, 'image'> & { image: string }>({
   game: {
     type: String,
     required: true,
@@ -26,7 +27,14 @@ const TeamSchema = new mongoose.Schema<Team>({
       validator: validator.isSlug,
     },
   },
+  image: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'image',
+    autopopulate: true,
+  },
 });
+
+TeamSchema.plugin(autopopulate);
 
 TeamSchema.pre('save', function (next) {
   if (!this.slug) {
@@ -36,4 +44,4 @@ TeamSchema.pre('save', function (next) {
   next();
 });
 
-export const TeamModel = mongoose.model('teams', TeamSchema);
+export const TeamModel = mongoose.model('team', TeamSchema);

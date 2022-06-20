@@ -1,6 +1,24 @@
 import { Role } from './enums';
 import { NodeEnv } from './types';
 
+interface Document {
+  _id?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface File {
+  name: string;
+  src: string;
+  size: number;
+}
+
+export interface Image extends File, Document {
+  base64: string;
+  width: number;
+  height: number;
+}
+
 export interface Environment {
   NODE_ENV: NodeEnv;
   PORT: number;
@@ -48,7 +66,7 @@ export interface Discord {
   refreshToken: string;
 }
 
-export interface User {
+export interface User extends Document {
   id: string;
   memberId: string;
   server: boolean;
@@ -58,6 +76,7 @@ export interface User {
   role: Role;
   teams: Array<Team['slug']>;
   payment?: Payment;
+  image?: Image;
 }
 
 export interface Auth {
@@ -65,32 +84,33 @@ export interface Auth {
   role: Role;
 }
 
-export interface Department {
+export interface Department extends Document {
   name: string;
   slug: string;
   roleId: string;
   leader?: User['id'];
 }
 
-export interface Team {
+export interface Team extends Document {
   name: string;
   slug: string;
   members: Array<User['id']>;
   game: Game['slug'];
+  image?: Image;
 }
 
-export interface Game {
+export interface Game extends Document {
   name: string;
   slug: string;
+  description: string;
   teams: Array<Team['slug']>;
+  image?: Image;
 }
 
-export interface News {
+export interface News extends Document {
   title: string;
   content: string;
   slug: string;
-  createdAt: Date;
-  updatedAt: Date;
   publishedAt?: Date;
   author: User['id'];
   editor: User['id'];

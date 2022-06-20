@@ -10,7 +10,7 @@ export default class DepartmentUtil {
   public static async createDepartment(data: Department): Promise<Department> {
     const department = await DepartmentModel.create(data);
 
-    return department.toJSON();
+    return department.toObject();
   }
 
   public static async deleteDepartment(slug: Department['slug']): Promise<DeleteResult> {
