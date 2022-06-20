@@ -76,7 +76,7 @@ export interface User extends Document {
   role: Role;
   teams: Array<Team['slug']>;
   payment?: Payment;
-  image: Image;
+  image?: Image;
 }
 
 export interface Auth {
@@ -96,7 +96,7 @@ export interface Team extends Document {
   slug: string;
   members: Array<User['id']>;
   game: Game['slug'];
-  image: Image;
+  image?: Image;
 }
 
 export interface Game extends Document {
@@ -104,7 +104,7 @@ export interface Game extends Document {
   slug: string;
   description: string;
   teams: Array<Team['slug']>;
-  image: Image;
+  image?: Image;
 }
 
 export interface News extends Document {
